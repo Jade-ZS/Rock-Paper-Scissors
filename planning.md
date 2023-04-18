@@ -30,6 +30,7 @@
 - Apr 20 (Thur):
     - [ ] extention: Persist player data using local storage (number of wins should persist across page refreshes)
     - [ ] extension: keep your DOM related JavaScript in a separate JS file altogether. This is NOT a requirement or expectation of this project. If you finish with extra time and want to try refactoring your code to pull the DOM related JavaScript into a `domUpdates.js` file, be sure to do so on a branch so you aren’t breaking your finished, working code while you play with it.
+    - [ ] extension: responsive break points
     - [ ] extension: log in page
     - [ ] extension: animation 
     - [ ] extension: cute game start alert
