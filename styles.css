@@ -1,0 +1,91 @@
+/* generals */
+* {
+  color: white;
+  font-family: "Noto Sans", serif, Times; 
+  text-shadow: 2px 2px red;
+}
+
+body {
+  /* background-color: #CF81FF; */
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  /* background-color: #CF81FF; */
+  background-color: #fa8fb1;
+  margin-block: 0;
+}
+
+main {
+  width: 70%;
+  background-color:#fc6998;
+  /* background-color:#be29ec */
+  /* background-color: #A44CD3; */
+  /* background-color: #E1BEE7; */
+  /* display: flex;
+  justify-content: center; */
+}
+
+main,
+header,
+.player,
+.mode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* text */
+h1 {
+  font-size: 5em;
+  font-weight: 900;
+  margin-block-end: 0;
+}
+
+h2,
+h3 {
+  font-weight: 400;
+}
+
+h4 {
+  /* font-size: 20px; */
+  font-weight: 200;
+}
+
+
+p {
+  /* line-height: 0.8; */
+  margin-block: 0;
+}
+
+
+/* images */
+
+
+/* player section */
+.player {
+  width: 15%;
+  margin-top: 5em;
+  /* background-color: #E1BEE7; */
+}
+
+.player>h2 {
+  margin-block: 0;
+}
+
+
+/* game board section */
+header {
+  margin-bottom: 20px;
+}
+.mode {
+  width: 18em;;
+  /* border: 10px, solid, grey;  */
+  /* background-color: #8800C7; */
+  background-color: #f74780;
+  border-width: 1px;
+  margin-top: 30px;
+  padding-bottom: 30px;
+  justify-content: center;
+}
+/* others */

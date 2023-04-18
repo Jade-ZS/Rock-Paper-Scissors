@@ -3,14 +3,17 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="./styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;700;800;900&display=swap" rel="stylesheet">
         <title>Rock Paper Scissors Game</title>
     </head>
     <body>
         <!-- human player section -->
-        <section>
+        <section class="player">
             <h2>👧🏻</h2>
             <h2>Human</h2>
-            <h3>Wins: 0</h3>
+            <h4>Wins: 0</h4>
         </section>
 
         <!-- game board section -->
@@ -20,28 +23,28 @@
                 <h2>Choose your game!</h2>
             </header>
             <!-- classic mode -->
-            <section>
-                <h2>CLASSIC</h2>
+            <div class="mode">
+                <h3>CLASSIC</h3>
                 <p>rock > scissors</p>
                 <p>paper > rock</p>
                 <p>scissors > paper</p>
-            </section>
+            </div>
             <!-- difficult mode -->
-            <section>
-                <h2>DIFFICULT</h2>
+            <div class="mode">
+                <h3>DIFFICULT</h3>
                 <p>rock > scissors & lizard</p>
                 <p>paper > rock & alien</p>
                 <p>scissors > paper & lizard</p>
                 <p>lizard > paper & alien</p>
                 <p>alien > scissors & rock</p>
-            </section>
+            </div>
         </main>
 
         <!-- computer player section -->
-        <section>
+        <section class="player">
             <h2>💻</h2>
             <h2>Computer</h2>
-            <h3>Wins: 0</h3>
+            <h4>Wins: 0</h4>
         </section>
 
         <script src="./main.js"></script>
