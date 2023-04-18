@@ -1,8 +1,8 @@
 /* generals */
-* {
+html {
   color: white;
   font-family: "Noto Sans", serif, Times; 
-  text-shadow: 2px 2px red;
+  text-shadow: 2px 2px red; 
 }
 
 body {
@@ -68,6 +68,7 @@ p {
 header {
   margin-bottom: 20px;
 }
+
 .mode {
   width: 18em;;
   background-color: #f74780;
@@ -75,6 +76,13 @@ header {
   margin-top: 30px;
   padding-bottom: 30px;
   justify-content: center;
+  cursor: pointer;
+}
+
+.mode:hover {
+  background-color: white;
+  color: #f74780;
+  text-shadow: 1px 1px white;
 }
 
 
