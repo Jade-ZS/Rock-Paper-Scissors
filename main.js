@@ -56,15 +56,19 @@ function renderEasyMode() {
     <img src="./assets/happy-rocks.png" alt="rock icon">
     <img src="./assets/happy-paper.png" alt="paper icon">
     <img src="./assets/happy-scissors.png" alt="scissors icon">
-    `;
+  `;
   displayGame();
-  return;
 }
 
 function renderDifficultMode() {
-  // todo 
+  fighters.innerHTML = `
+    <img src="./assets/happy-rocks.png" alt="rock icon">
+    <img src="./assets/happy-paper.png" alt="paper icon">
+    <img src="./assets/happy-scissors.png" alt="scissors icon">
+    <img src="./assets/lizard.png" alt="lizard icon">
+    <img src="./assets/happy-alien.png" alt="alien icon">
+  `;
   displayGame();
-  return;
 }
 
 function displayGame() {
