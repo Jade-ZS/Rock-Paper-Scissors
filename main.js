@@ -21,6 +21,8 @@ gameBoard.addEventListener('click', event => displayGame(event));
 gameBoard.addEventListener('click', event => getUserFighter(event));
 
 // event handlers
+
+// data model generator. to be fixed
 function createPlayer(name, token, wins) {
   var player = {
     name: name || 'Unknown',
@@ -30,12 +32,6 @@ function createPlayer(name, token, wins) {
   
   return player;
 }
-
-/**
- * saveWinsToStorage
- * retrieveWinsFromStorage
- * takeTurn
- */
 
 // idea: fighters is an array, player1's fighter and player2's fighter in each round
 function createGame(fighters, type) {
@@ -47,6 +43,13 @@ function createGame(fighters, type) {
   }
   return game;
 }
+
+/** local storage extension
+ * saveWinsToStorage
+ * retrieveWinsFromStorage
+ * takeTurn
+ */
+
 
 // game page - choose a fighter page
 function showMessage() {
