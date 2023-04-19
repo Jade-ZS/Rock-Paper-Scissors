@@ -31,22 +31,15 @@ var result = document.querySelector('.result');
 
 
 // event listeneres
-gameBoard.addEventListener('click', event => displayGame(event));
-var ifHidden = fighters.classList.contains('hidden');
-console.log('global fighters ifHidden Status', ifHidden)
 gameBoard.addEventListener('click', event => {
-  console.log('fighters: ', fighters)
-  var ifImg = event.target.nodeName === 'IMG';
-  var ifHidden = fighters.classList.contains('hidden');
-  var condition = ifImg && (!ifHidden);
-  console.log('nodeName: ', ifImg)
-  console.log('ifHidden: ', ifHidden)
-  console.log('condition: ', condition);
-  console.log('-----------')
-  if (condition) {
+  if (event.target.nodeName !== 'IMG') {
+    displayGame(event);
+  }
+});
+gameBoard.addEventListener('click', event => {
+  if (event.target.nodeName === 'IMG' && !fighters.classList.contains('hidden')) {
     displayResult(event);
   }
-  // event.target.nodeName === 'IMG' && !fighters.classList.contains('hidden')
 });
 
 
