@@ -12,12 +12,12 @@ var fighters = document.querySelector('.fighters')
 // var difficultMode = mode[1];
 
 gameBoard.addEventListener('click', (event) => {
-  if (event.target.innerText.indexOf('CLASSIC') != -1) {
+  if (event.target.innerText.indexOf('CLASSIC') !== -1|| event.target.parentElement.firstElementChild.innerText.indexOf("CLASSIC") !== -1) {
     renderEasyMode();
   } else {
     renderDifficultMode();
   }
-})
+});
 
 
 
