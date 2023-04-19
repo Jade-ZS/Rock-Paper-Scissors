@@ -16,6 +16,7 @@ body {
 
 main {
   width: 70%;
+  height: 100%;
   background-color:#fc6998;
 }
 
@@ -51,6 +52,10 @@ p {
 
 
 /* images */
+img {
+  height: 15em;
+}
+
 
 
 /* player section */
@@ -65,10 +70,6 @@ p {
 
 
 /* game board section */
-header {
-  /* margin-bottom: 20px; */
-}
-
 .mode {
   width: 18em;;
   background-color: #f74780;
@@ -86,19 +87,17 @@ header {
 }
 
 .fighters {
-  height: 600px;
-  align-items: center;
   display: flex;
+  align-content: center;
   flex-wrap: wrap;
   justify-content: center;
-  width: 720px;
-  /* margin-top: 100px; */
+  width: 720px; 
+  margin-top: 100px;
 }
 
-.fighters img {
-  height: 15em;
+.result {
+  margin-top: 100px;
 }
-
 
 /* others */
 .hidden {

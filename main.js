@@ -21,14 +21,34 @@ var difficultMode = easyMode.concat(
 var gameBoard = document.querySelector('main');
 var modes = gameBoard.getElementsByClassName('mode');
 var subline = document.querySelector('header>h2');
-var fighters = document.querySelector('.fighters')
+var fighters = document.querySelector('.fighters');
+
+var result = document.querySelector('.result');
 // var easyMode = mode[0];
 // var difficultMode = mode[1];
 
 
+
+
 // event listeneres
 gameBoard.addEventListener('click', event => displayGame(event));
-gameBoard.addEventListener('click', event => getUserFighter(event));
+var ifHidden = fighters.classList.contains('hidden');
+console.log('global fighters ifHidden Status', ifHidden)
+gameBoard.addEventListener('click', event => {
+  console.log('fighters: ', fighters)
+  var ifImg = event.target.nodeName === 'IMG';
+  var ifHidden = fighters.classList.contains('hidden');
+  var condition = ifImg && (!ifHidden);
+  console.log('nodeName: ', ifImg)
+  console.log('ifHidden: ', ifHidden)
+  console.log('condition: ', condition);
+  console.log('-----------')
+  if (condition) {
+    displayResult(event);
+  }
+  // event.target.nodeName === 'IMG' && !fighters.classList.contains('hidden')
+});
+
 
 // event handlers
 
@@ -62,10 +82,28 @@ function createGame(fighters, type) {
 
 
 // game page - choose a fighter page
-function hideModeBox() {
+function ifShowModeBox(choice) {
   for (var i = 0; i < modes.length; i++) {
-    modes[i].classList.add('hidden');
+    if (!choice) {
+      modes[i].classList.add('hidden');
+    } else {
+      modes[i].classList.remove('hidden');
+    }
   };
+}
+
+function ifShowFighters(choice) {
+  if (!choice) {
+    fighters.classList.add('hidden');
+  } else {
+    fighters.classList.remove('hidden');
+  }
+}
+
+
+// might not need this
+function hideResult() {
+  result.classList.add('hidden');
 }
 
 function showMessage(message) {
@@ -94,7 +132,8 @@ function renderGameMode(event) {
 }
 
 function displayGame(event) {
-  hideModeBox();
+  ifShowModeBox(false);
+  ifShowFighters(true);
   showMessage('Choose your fighter!');
   renderGameMode(event);
 }
@@ -108,14 +147,33 @@ function generateRandomFighter(fighters) {
   return fighters[index];
 }
 
+
+// refactor TO DO
 function getUserFighter(event) {
-  if (event.target.nodeName === 'IMG') {
-    for (var i = 0; i < currentMode.length; i++) {
-      if (event.target.alt.includes(currentMode[i])) {
-        currentChoice = currentMode[i];
-      }
+  currentChoice = event.target
+  for (var i = 0; i < currentMode.length; i++) {
+    if (event.target.alt.includes(currentMode[i].fighter)) {
+      currentChoice = currentMode[i];
     }
   }
+}
+
+
+function renderResult() {
+  var computerChoice = generateRandomFighter(currentMode);
+  var playerChoice = currentChoice;
+  result.innerHTML = `
+    <img src=${playerChoice.img} alt=${playerChoice.fighter}>
+    <img src=${computerChoice.img} alt=${computerChoice.fighter}>
+  `;
+}
+
+
+// refactor TO DO
+function displayResult(event) {
+    getUserFighter(event);
+    ifShowFighters(false);
+    renderResult();
 }
 
 function determineWinner() {
