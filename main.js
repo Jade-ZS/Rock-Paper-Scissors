@@ -3,8 +3,10 @@
 var player1 = createPlayer();
 var player2 = createPlayer();
 var currentWinner;
-var easyFighters = ['rock', 'paper', 'scissors'];
-var difficultFighters = easyFighters.concat(['lizzard', 'alien']);
+var currentChoice;
+var currentMode;
+var easyMode = ['rock', 'paper', 'scissors'];
+var difficultMode = easyMode.concat(['lizard', 'alien']);
 
 var gameBoard = document.querySelector('main');
 var modes = gameBoard.getElementsByClassName('mode');
@@ -13,17 +15,10 @@ var fighters = document.querySelector('.fighters')
 // var easyMode = mode[0];
 // var difficultMode = mode[1];
 
-gameBoard.addEventListener('click', (event) => {
-  if (event.target.innerText.indexOf('CLASSIC') !== -1|| event.target.parentElement.firstElementChild.innerText.indexOf("CLASSIC") !== -1) {
-    renderEasyMode();
-  } else {
-    renderDifficultMode();
-  }
-});
-
-
 
 // event listeneres
+gameBoard.addEventListener('click', event => displayGame(event));
+gameBoard.addEventListener('click', event => getUserFighter(event));
 
 // event handlers
 function createPlayer(name, token, wins) {
@@ -53,37 +48,67 @@ function createGame(fighters, type) {
   return game;
 }
 
-function renderEasyMode() {
-  fighters.innerHTML = `
+// game page - choose a fighter page
+function showMessage() {
+  subline.innerText = 'Choose your fighter!';
+}
+
+function getGameMode(event) {
+  var modeChoiceBox = event.target.parentElement.firstElementChild;
+  if (event.target.innerText.indexOf('CLASSIC') !== -1|| modeChoiceBox.innerText.indexOf("CLASSIC") !== -1) {
+    currentMode = easyMode;
+  } else if (event.target.innerText.indexOf('DIFFICULT') !== -1|| modeChoiceBox.innerText.indexOf("DIFFICULT") !== -1) {
+    currentMode = difficultMode;
+  }
+  return currentMode;
+}
+
+function renderGameMode(event) {
+  var currentMode = getGameMode(event);
+  var basicFighterSet = `
     <img src="./assets/happy-rocks.png" alt="rock icon">
     <img src="./assets/happy-paper.png" alt="paper icon">
     <img src="./assets/happy-scissors.png" alt="scissors icon">
   `;
-  displayGame();
+  fighters.innerHTML = basicFighterSet;
+  if (currentMode.toString() === difficultMode.toString()) {
+    fighters.innerHTML += ` 
+      <img src="./assets/lizard.png" alt="lizard icon">
+      <img src="./assets/happy-alien.png" alt="alien icon">
+    `;
+  }
 }
 
-function renderDifficultMode() {
-  fighters.innerHTML = `
-    <img src="./assets/happy-rocks.png" alt="rock icon">
-    <img src="./assets/happy-paper.png" alt="paper icon">
-    <img src="./assets/happy-scissors.png" alt="scissors icon">
-    <img src="./assets/lizard.png" alt="lizard icon">
-    <img src="./assets/happy-alien.png" alt="alien icon">
-  `;
-  displayGame();
-}
-
-function displayGame() {
+function displayGame(event) {
   for (var i = 0; i < modes.length; i++) {
     modes[i].classList.add('hidden');
-  }
+  };
 
-  subline.innerText = 'Choose your fighter!';
-  return;
+  showMessage;
+  renderGameMode(event);
 }
 
+
+
+// determine winner page
 function generateRandomFighter(fighters) {
   var index = Math.floor(fighters.length * Math.random());
   return fighters[index];
+}
+
+function getUserFighter(event) {
+  if (event.target.nodeName === 'IMG') {
+    for (var i = 0; i < currentMode.length; i++) {
+      if (event.target.alt.includes(currentMode[i])) {
+        currentChoice = currentMode[i];
+      }
+    }
+  }
+}
+
+function determineWinner() {
+  // TO DO
+  // rules
+  return;
 }
 
