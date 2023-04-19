@@ -3,7 +3,8 @@
 var player1 = createPlayer();
 var player2 = createPlayer();
 var currentWinner;
-var currentChoice;
+var playerChoice;
+var computerChoice;
 var currentMode;
 // var easyMode = ['rock', 'paper', 'scissors'];
 // var difficultMode = easyMode.concat(['lizard', 'alien']);
@@ -36,6 +37,7 @@ gameBoard.addEventListener('click', event => {
     displayGame(event);
   }
 });
+
 gameBoard.addEventListener('click', event => {
   if (event.target.nodeName === 'IMG' && !fighters.classList.contains('hidden')) {
     displayResult(event);
@@ -140,21 +142,19 @@ function generateRandomFighter(fighters) {
   return fighters[index];
 }
 
-
-// refactor TO DO
 function getUserFighter(event) {
-  currentChoice = event.target
+  playerChoice = event.target
   for (var i = 0; i < currentMode.length; i++) {
     if (event.target.alt.includes(currentMode[i].fighter)) {
-      currentChoice = currentMode[i];
+      playerChoice = currentMode[i];
     }
   }
 }
 
 
 function renderResult() {
-  var computerChoice = generateRandomFighter(currentMode);
-  var playerChoice = currentChoice;
+  computerChoice = generateRandomFighter(currentMode);
+  // var playerChoice = currentChoice;
   result.innerHTML = `
     <img src=${playerChoice.img} alt=${playerChoice.fighter}>
     <img src=${computerChoice.img} alt=${computerChoice.fighter}>
@@ -167,11 +167,34 @@ function displayResult(event) {
     getUserFighter(event);
     ifShowFighters(false);
     renderResult();
+
+    // render text
+    var winner = determineWinner(playerChoice, computerChoice);
+    var message;
+    if (winner) {
+      message = `${winner.fighter} wins!`; // TO DO: improve this, chagnge this to player's name
+    } else {
+      message = `It's a draw!`;
+    }
+    showMessage(message);
 }
 
-function determineWinner() {
-  // TO DO
-  // rules
-  return;
+function determineWinner(player1, player2) {
+  var winner;
+  var condition1 = player1.fighter === 'rock' && player2.fighter === ('scissors'||'lizard');
+  var condition2 = player1.fighter === 'paper' && player2.fighter === ('rock'||'alien');
+  var condition3 = player1.fighter === 'scissors' && player2.fighter === ('paper'||'lizard');
+  var condition4 = player1.fighter === 'lizard' && player2.fighter === ('paper'||'alien');
+  var condition5 = player1.fighter === 'alien' && player2.fighter === ('scissors'||'rock');
+  if (condition1||condition2||condition3||condition4||condition5) {
+    winner = player1; // To DO: change this to player object
+  } else if (player1.fighter === player2.fighter) {
+    return false; // TO DO: improve this
+  } else {
+    winner = player2; // TO DO: change this to player object
+  }
+  return winner;
 }
+
+
 
