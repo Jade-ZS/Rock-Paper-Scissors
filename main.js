@@ -62,6 +62,12 @@ function createGame(fighters, type) {
 
 
 // game page - choose a fighter page
+function hideModeBox() {
+  for (var i = 0; i < modes.length; i++) {
+    modes[i].classList.add('hidden');
+  };
+}
+
 function showMessage(message) {
   subline.innerText = message;
 }
@@ -88,10 +94,7 @@ function renderGameMode(event) {
 }
 
 function displayGame(event) {
-  for (var i = 0; i < modes.length; i++) {
-    modes[i].classList.add('hidden');
-  };
-
+  hideModeBox();
   showMessage('Choose your fighter!');
   renderGameMode(event);
 }
