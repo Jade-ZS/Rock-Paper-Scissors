@@ -52,8 +52,8 @@ function createGame(fighters, type) {
 
 
 // game page - choose a fighter page
-function showMessage() {
-  subline.innerText = 'Choose your fighter!';
+function showMessage(message) {
+  subline.innerText = message;
 }
 
 function getGameMode(event) {
@@ -87,10 +87,11 @@ function displayGame(event) {
     modes[i].classList.add('hidden');
   };
 
-  showMessage;
+  showMessage('Choose your fighter!');
   renderGameMode(event);
 }
 
+// display players' fighter choices
 
 
 // determine winner page
