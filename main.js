@@ -3,6 +3,8 @@
 var player1 = createPlayer();
 var player2 = createPlayer();
 var currentWinner;
+var easyFighters = ['rock', 'paper', 'scissors'];
+var difficultFighters = easyFighters.concat(['lizzard', 'alien']);
 
 var gameBoard = document.querySelector('main');
 var modes = gameBoard.getElementsByClassName('mode');
@@ -79,3 +81,9 @@ function displayGame() {
   subline.innerText = 'Choose your fighter!';
   return;
 }
+
+function generateRandomFighter(fighters) {
+  var index = Math.floor(fighters.length * Math.random());
+  return fighters[index];
+}
+
