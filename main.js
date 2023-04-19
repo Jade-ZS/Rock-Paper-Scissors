@@ -5,8 +5,18 @@ var player2 = createPlayer();
 var currentWinner;
 var currentChoice;
 var currentMode;
-var easyMode = ['rock', 'paper', 'scissors'];
-var difficultMode = easyMode.concat(['lizard', 'alien']);
+// var easyMode = ['rock', 'paper', 'scissors'];
+// var difficultMode = easyMode.concat(['lizard', 'alien']);
+var easyMode = [
+  {fighter:'rock', img:'./assets/happy-rocks.png'},
+  {fighter:'paper', img:'./assets/happy-paper.png'},
+  {fighter:'scissors', img:'./assets/happy-scissors.png'},
+];
+
+var difficultMode = easyMode.concat(
+  {fighter:'lizard', img:'./assets/lizard.png'},
+  {fighter:'alien', img:'./assets/happy-alien.png'}
+);
 
 var gameBoard = document.querySelector('main');
 var modes = gameBoard.getElementsByClassName('mode');
@@ -68,17 +78,12 @@ function getGameMode(event) {
 
 function renderGameMode(event) {
   var currentMode = getGameMode(event);
-  var basicFighterSet = `
-    <img src="./assets/happy-rocks.png" alt="rock icon">
-    <img src="./assets/happy-paper.png" alt="paper icon">
-    <img src="./assets/happy-scissors.png" alt="scissors icon">
-  `;
-  fighters.innerHTML = basicFighterSet;
-  if (currentMode.toString() === difficultMode.toString()) {
-    fighters.innerHTML += ` 
-      <img src="./assets/lizard.png" alt="lizard icon">
-      <img src="./assets/happy-alien.png" alt="alien icon">
-    `;
+  fighters.innerHTML = '';
+  for (var i = 0; i < 5; i++) {
+    if (!currentMode[i]) {
+      return;
+    }
+    fighters.innerHTML += `<img src=${currentMode[i].img} alt=${currentMode[i].fighter}>`
   }
 }
 
