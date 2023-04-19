@@ -3,6 +3,8 @@
 var player1 = createPlayer();
 var player2 = createPlayer();
 var currentWinner;
+var easyFighters = ['rock', 'paper', 'scissors'];
+var difficultFighters = easyFighters.concat(['lizzard', 'alien']);
 
 var gameBoard = document.querySelector('main');
 var modes = gameBoard.getElementsByClassName('mode');
@@ -12,12 +14,12 @@ var fighters = document.querySelector('.fighters')
 // var difficultMode = mode[1];
 
 gameBoard.addEventListener('click', (event) => {
-  if (event.target.innerText.indexOf('CLASSIC') != -1) {
+  if (event.target.innerText.indexOf('CLASSIC') !== -1|| event.target.parentElement.firstElementChild.innerText.indexOf("CLASSIC") !== -1) {
     renderEasyMode();
   } else {
     renderDifficultMode();
   }
-})
+});
 
 
 
@@ -56,15 +58,19 @@ function renderEasyMode() {
     <img src="./assets/happy-rocks.png" alt="rock icon">
     <img src="./assets/happy-paper.png" alt="paper icon">
     <img src="./assets/happy-scissors.png" alt="scissors icon">
-    `;
+  `;
   displayGame();
-  return;
 }
 
 function renderDifficultMode() {
-  // todo 
+  fighters.innerHTML = `
+    <img src="./assets/happy-rocks.png" alt="rock icon">
+    <img src="./assets/happy-paper.png" alt="paper icon">
+    <img src="./assets/happy-scissors.png" alt="scissors icon">
+    <img src="./assets/lizard.png" alt="lizard icon">
+    <img src="./assets/happy-alien.png" alt="alien icon">
+  `;
   displayGame();
-  return;
 }
 
 function displayGame() {
@@ -75,3 +81,9 @@ function displayGame() {
   subline.innerText = 'Choose your fighter!';
   return;
 }
+
+function generateRandomFighter(fighters) {
+  var index = Math.floor(fighters.length * Math.random());
+  return fighters[index];
+}
+
