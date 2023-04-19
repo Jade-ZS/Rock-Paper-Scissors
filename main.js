@@ -3,7 +3,7 @@
 var player1 = createPlayer();
 var player2 = createPlayer();
 var currentWinner;
-var currentFighter;
+var currentChoice;
 var currentMode;
 var easyMode = ['rock', 'paper', 'scissors'];
 var difficultMode = easyMode.concat(['lizzard', 'alien']);
@@ -19,7 +19,16 @@ var fighters = document.querySelector('.fighters')
 // event listeneres
 gameBoard.addEventListener('click', event => displayGame(event));
 
-// gameBoard.addEventListener('click', event)
+gameBoard.addEventListener('click', event => {
+  if (event.target.nodeName === 'IMG') {
+    for (var i = 0; i < currentMode.length; i++) {
+      if (event.target.alt.includes(currentMode[i])) {
+        currentChoice = currentMode[i];
+      }
+    }
+  }
+ 
+});
 
 // event handlers
 function createPlayer(name, token, wins) {
