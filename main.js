@@ -6,7 +6,7 @@ var currentWinner;
 var currentChoice;
 var currentMode;
 var easyMode = ['rock', 'paper', 'scissors'];
-var difficultMode = easyMode.concat(['lizzard', 'alien']);
+var difficultMode = easyMode.concat(['lizard', 'alien']);
 
 var gameBoard = document.querySelector('main');
 var modes = gameBoard.getElementsByClassName('mode');
@@ -18,17 +18,7 @@ var fighters = document.querySelector('.fighters')
 
 // event listeneres
 gameBoard.addEventListener('click', event => displayGame(event));
-
-gameBoard.addEventListener('click', event => {
-  if (event.target.nodeName === 'IMG') {
-    for (var i = 0; i < currentMode.length; i++) {
-      if (event.target.alt.includes(currentMode[i])) {
-        currentChoice = currentMode[i];
-      }
-    }
-  }
- 
-});
+gameBoard.addEventListener('click', event => getUserFighter(event));
 
 // event handlers
 function createPlayer(name, token, wins) {
@@ -104,6 +94,16 @@ function displayGame(event) {
 function generateRandomFighter(fighters) {
   var index = Math.floor(fighters.length * Math.random());
   return fighters[index];
+}
+
+function getUserFighter(event) {
+  if (event.target.nodeName === 'IMG') {
+    for (var i = 0; i < currentMode.length; i++) {
+      if (event.target.alt.includes(currentMode[i])) {
+        currentChoice = currentMode[i];
+      }
+    }
+  }
 }
 
 function determineWinner() {
