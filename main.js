@@ -74,10 +74,17 @@ function showResultText() {
 
 // log-in-page
 /**
- * html: form
+ * html: form (create your own, or continue as a guest)
  * - username, token (allow upload)
+ * - local storage, password
  * js: update humanplayer based on form information
  * js: connect to local storage
+ * if guest, not local storage
+ * if own, local storage
+ * 
+ * local storage
+ * username, token, password, wins
+ * game history
  */
 
 // home-page
@@ -99,8 +106,6 @@ function getGameMode(event) {
   return currentGame.mode;
 }
 
-
-
 function displayGame(event) {
   getGameMode(event);
   renderGameBoard(currentGame.mode);
@@ -116,7 +121,7 @@ function resetGameBoard() {
   ifShowItem(result, false);
 }
 
-// determine-winner-page
+// Result-page
 function generateRandomFighter(fighters) {
   var index = Math.floor(fighters.length * Math.random());
   return fighters[index];
@@ -130,7 +135,6 @@ function getUserFighter(event) {
     }
   }
 }
-
 
 function displayResult(event) {
     getUserFighter(event);
