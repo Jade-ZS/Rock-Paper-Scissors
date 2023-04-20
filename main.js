@@ -42,6 +42,7 @@ gameBoard.addEventListener('click', event => {
   }
 });
 
+changeGameButton.addEventListener('click', displayInitialView);
 
 // event handlers
 
@@ -94,10 +95,10 @@ function ifShowItem(item, choice) {
   }
 }
 
-
-// might not need this
-function hideResult() {
-  result.classList.add('hidden');
+function displayInitialView() {
+  ifShowCollection(modes, true);
+  ifShowItem(result, false);
+  ifShowItem(fighters, false);
 }
 
 function showMessage(message) {
@@ -127,6 +128,7 @@ function renderGameMode(event) {
 
 function displayGame(event) {
   ifShowCollection(modes, false);
+  ifShowItem(changeGameButton, true);
   ifShowItem(fighters, true);
   showMessage('Choose your fighter!');
   renderGameMode(event);
@@ -164,6 +166,7 @@ function renderResult() {
 function displayResult(event) {
     getUserFighter(event);
     ifShowItem(fighters, false);
+    ifShowItem(result, true);
     renderResult();
 
     // render text
