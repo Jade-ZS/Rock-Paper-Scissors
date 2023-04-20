@@ -1,19 +1,29 @@
-function ifShowCollection(collection, choice) {
-  for (var i = 0; i < collection.length; i++) {
+// function ifShowCollection(collection, choice) {
+//   for (var i = 0; i < collection.length; i++) {
+//     if (!choice) {
+//       modes[i].classList.add('hidden');
+//     } else {
+//       modes[i].classList.remove('hidden');
+//     }
+//   };
+// }
+
+// function ifShowItem(item, choice) {
+//   if (!choice) {
+//     item.classList.add('hidden');
+//   } else {
+//     item.classList.remove('hidden');
+//   }
+// }
+
+function ifShowItems(items, choice) {
+  for (var i = 0; i < items.length; i++) {
     if (!choice) {
-      modes[i].classList.add('hidden');
+      items[i].classList.add('hidden');
     } else {
-      modes[i].classList.remove('hidden');
+      items[i].classList.remove('hidden');
     }
   };
-}
-
-function ifShowItem(item, choice) {
-  if (!choice) {
-    item.classList.add('hidden');
-  } else {
-    item.classList.remove('hidden');
-  }
 }
 
 function showMessage(message) {

@@ -36,7 +36,7 @@ var changeGameButton = document.querySelector('.change-game-button');
 window.addEventListener('load', displayLogIn)
 gameBoard.addEventListener('click', event => {
   if (event.target.classList.contains('mode') || event.target.parentElement.classList.contains('mode')) {
-    displayGame(event);
+    displayFighters(event);
   }
 });
 
@@ -88,8 +88,16 @@ function showResultText() {
 
 // log-in-page
 function displayLogIn() {
-  ifShowItem(loginView, true);
-  ifShowItem(gameView, false);
+  // to show
+  var itemsToShow= [loginView];
+  ifShowItems(itemsToShow, true);
+  // to hide
+  var itemsToHide = [gameView];
+  ifShowItems(itemsToHide, false);
+  
+
+  // ifShowItem(loginView, true);
+  // ifShowItem(gameView, false);
 }
 /**
  * html: form (create your own, or continue as a guest)
@@ -112,11 +120,19 @@ function displayLogIn() {
 // home-page
 function displayHome() {
   renderWins(players);
-  ifShowItem(gameView, true);
-  ifShowCollection(modes, true);
-  ifShowItem(result, false);
-  ifShowItem(fighters, false);
-  ifShowItem(loginView, false);
+
+    // to show
+    var itemsToShow= [gameView].concat(Array.from(modes));
+    ifShowItems(itemsToShow, true);
+    // to hide
+    var itemsToHide = [result, fighters, loginView];
+    ifShowItems(itemsToHide, false);
+
+  // ifShowItem(gameView, true);
+  // ifShowCollection(modes, true);
+  // ifShowItem(result, false);
+  // ifShowItem(fighters, false);
+  // ifShowItem(loginView, false);
 }
 
 // chose-a-fighter-page
@@ -130,21 +146,36 @@ function getGameMode(event) {
   return currentGame.mode;
 }
 
-function displayGame(event) {
+function displayFighters(event) {
   getGameMode(event);
   renderGameBoard(currentGame.mode);
-  ifShowItem(changeGameButton, true);
-  ifShowItem(fighters, true);
-  ifShowCollection(modes, false);
-  ifShowItem(result, false);
-  ifShowItem(loginView, false);
-  
+
+  // to show
+  var itemsToShow = [fighters, changeGameButton];
+  ifShowItems(itemsToShow, true);
+  // to hide
+  var itemsToHide = [loginView, result].concat(Array.from(modes));
+  ifShowItems(itemsToHide, false);
+
+  // ifShowItem(changeGameButton, true);
+  // ifShowItem(fighters, true);
+  // ifShowCollection(modes, false);
+  // ifShowItem(result, false);
+  // ifShowItem(loginView, false);
+
   showMessage('Choose your fighter!');
 }
 
 function resetGameBoard() {
-  ifShowItem(fighters, true);
-  ifShowItem(result, false);
+    // to show
+    var itemsToShow= [fighters];
+    ifShowItems(itemsToShow, true);
+    // to hide
+    var itemsToHide = [result];
+    ifShowItems(itemsToHide, false);
+
+  // ifShowItem(fighters, true);
+  // ifShowItem(result, false);
 }
 
 // Result-page
@@ -163,9 +194,16 @@ function getUserFighter(event) {
 }
 
 function displayResult(event) {
+    // to show
+    var itemsToShow= [result];
+    ifShowItems(itemsToShow, true);
+    // to hide
+    var itemsToHide = [fighters];
+    ifShowItems(itemsToHide, false);
+
     getUserFighter(event);
-    ifShowItem(fighters, false);
-    ifShowItem(result, true);
+    // ifShowItem(fighters, false);
+    // ifShowItem(result, true);
     renderResult();
     renderWins(players);
     showResultText();  
