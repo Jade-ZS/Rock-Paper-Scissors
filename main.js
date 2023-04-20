@@ -1,14 +1,8 @@
 // variables
+// DATA model
 var humanPlayer = createPlayer();
 var computerPlayer = createPlayer('computer', '💻');
 var currentGame = createGame(humanPlayer, computerPlayer);
-var gameBoard = document.querySelector('main');
-var modes = gameBoard.getElementsByClassName('mode');
-var players = document.getElementsByClassName('player');
-var fighters = document.querySelector('.fighters');
-var subline = document.querySelector('header>h2');
-var result = document.querySelector('.result');
-var changeGameButton = document.querySelector('.change-game-button');
 var easyMode = [
   {fighter:'rock', img:'./assets/happy-rocks.png'},
   {fighter:'paper', img:'./assets/happy-paper.png'},
@@ -19,8 +13,27 @@ var difficultMode = easyMode.concat(
   {fighter:'alien', img:'./assets/happy-alien.png'}
 );
 
+// view
+var loginView = document.querySelector('.login-view');
+var registerView = document.querySelector('.register-view');
+var gameView = document.querySelector('.game-view');
+var result = document.querySelector('.result-view');
+var fighters = document.querySelector('.fighters-view');
+var gameBoard = document.querySelector('.gameboard');
+var players = document.getElementsByClassName('player');
+var modes = gameBoard.getElementsByClassName('mode');
+var subline = document.querySelector('header>h2');
+
+// BUTTON
+var loginButton = document.querySelector('.log-in-button');
+var registerButton = document.querySelector('.register-button');
+var asGuestButton = document.querySelector('.as-guest-button');
+var changeGameButton = document.querySelector('.change-game-button');
+
+
+
 // event listeneres
-window.addEventListener('load', displayInitialView)
+window.addEventListener('load', displayLogIn)
 gameBoard.addEventListener('click', event => {
   if (event.target.classList.contains('mode') || event.target.parentElement.classList.contains('mode')) {
     displayGame(event);
@@ -34,7 +47,8 @@ gameBoard.addEventListener('click', event => {
   }
 });
 
-changeGameButton.addEventListener('click', displayInitialView);
+changeGameButton.addEventListener('click', displayHome);
+loginButton.addEventListener('click', displayHome);
 
 // event handlers
 function createPlayer(name, token, wins) {
@@ -46,7 +60,7 @@ function createPlayer(name, token, wins) {
   return player;
 }
 
-function createGame(player1, player2, mode) {
+function createGame(player1, player2) {
   var game = {
     player1: player1,
     player2: player2,
@@ -73,6 +87,10 @@ function showResultText() {
 }
 
 // log-in-page
+function displayLogIn() {
+  ifShowItem(loginView, true);
+  ifShowItem(gameView, false);
+}
 /**
  * html: form (create your own, or continue as a guest)
  * - username, token (allow upload)
@@ -87,12 +105,18 @@ function showResultText() {
  * game history
  */
 
+// register-page
+
+//
+
 // home-page
-function displayInitialView() {
+function displayHome() {
   renderWins(players);
+  ifShowItem(gameView, true);
   ifShowCollection(modes, true);
   ifShowItem(result, false);
   ifShowItem(fighters, false);
+  ifShowItem(loginView, false);
 }
 
 // chose-a-fighter-page
@@ -109,10 +133,12 @@ function getGameMode(event) {
 function displayGame(event) {
   getGameMode(event);
   renderGameBoard(currentGame.mode);
-  ifShowCollection(modes, false);
   ifShowItem(changeGameButton, true);
   ifShowItem(fighters, true);
+  ifShowCollection(modes, false);
   ifShowItem(result, false);
+  ifShowItem(loginView, false);
+  
   showMessage('Choose your fighter!');
 }
 
