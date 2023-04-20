@@ -23,10 +23,8 @@ var gameBoard = document.querySelector('main');
 var modes = gameBoard.getElementsByClassName('mode');
 var subline = document.querySelector('header>h2');
 var fighters = document.querySelector('.fighters');
-
 var result = document.querySelector('.result');
-// var easyMode = mode[0];
-// var difficultMode = mode[1];
+var changeGameButton = document.querySelector('#change-game-button');
 
 
 
@@ -77,8 +75,9 @@ function createGame(fighters, type) {
 
 
 // game page - choose a fighter page
-function ifShowModeBox(choice) {
-  for (var i = 0; i < modes.length; i++) {
+// TO DO: refactor- turn into one function ifShowItem(item, choice){}
+function ifShowCollection(collection, choice) {
+  for (var i = 0; i < collection.length; i++) {
     if (!choice) {
       modes[i].classList.add('hidden');
     } else {
@@ -87,11 +86,11 @@ function ifShowModeBox(choice) {
   };
 }
 
-function ifShowFighters(choice) {
+function ifShowItem(item, choice) {
   if (!choice) {
-    fighters.classList.add('hidden');
+    item.classList.add('hidden');
   } else {
-    fighters.classList.remove('hidden');
+    item.classList.remove('hidden');
   }
 }
 
@@ -127,8 +126,8 @@ function renderGameMode(event) {
 }
 
 function displayGame(event) {
-  ifShowModeBox(false);
-  ifShowFighters(true);
+  ifShowCollection(modes, false);
+  ifShowItem(fighters, true);
   showMessage('Choose your fighter!');
   renderGameMode(event);
 }
@@ -154,7 +153,6 @@ function getUserFighter(event) {
 
 function renderResult() {
   computerChoice = generateRandomFighter(currentMode);
-  // var playerChoice = currentChoice;
   result.innerHTML = `
     <img src=${playerChoice.img} alt=${playerChoice.fighter}>
     <img src=${computerChoice.img} alt=${computerChoice.fighter}>
@@ -165,7 +163,7 @@ function renderResult() {
 // refactor TO DO
 function displayResult(event) {
     getUserFighter(event);
-    ifShowFighters(false);
+    ifShowItem(fighters, false);
     renderResult();
 
     // render text
