@@ -68,6 +68,15 @@ img {
   margin-block: 0;
 }
 
+.player>button {
+  background-color: #fc6998;
+  color: white;
+  cursor: pointer;
+  height: 40px;
+  /* border: none; */
+  border-radius: 5px;
+}
+
 
 /* game board section */
 .mode {
