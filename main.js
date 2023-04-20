@@ -2,6 +2,7 @@
 /** TODO: fix name and token later (hard coded in html, need to be fixed as well) */
 var humanPlayer = createPlayer();
 var computerPlayer = createPlayer('computer', '💻');
+var currentGame = createGame(humanPlayer, computerPlayer);
 var currentMode;
 var easyMode = [
   {fighter:'rock', img:'./assets/happy-rocks.png'},
@@ -55,7 +56,7 @@ function createGame(player1, player2, mode) {
   var game = {
     player1: player1,
     player2: player2,
-    mode: mode
+    // mode: mode
   }
   return game;
 }
@@ -99,21 +100,21 @@ function showMessage(message) {
 function getGameMode(event) {
   var modeChoiceBox = event.target.parentElement.firstElementChild;
   if (event.target.innerText.indexOf('CLASSIC') !== -1|| modeChoiceBox.innerText.indexOf("CLASSIC") !== -1) {
-    currentMode = easyMode;
+    currentGame.mode = easyMode;
   } else if (event.target.innerText.indexOf('DIFFICULT') !== -1|| modeChoiceBox.innerText.indexOf("DIFFICULT") !== -1) {
-    currentMode = difficultMode;
+    currentGame.mode = difficultMode;
   }
-  return currentMode;
+  return currentGame.mode;
 }
 
 function renderGameMode(event) {
-  var currentMode = getGameMode(event);
+  currentGame.mode = getGameMode(event);
   fighters.innerHTML = '';
   for (var i = 0; i < 5; i++) {
-    if (!currentMode[i]) {
+    if (!currentGame.mode[i]) {
       return;
     }
-    fighters.innerHTML += `<img src=${currentMode[i].img} alt=${currentMode[i].fighter}>`
+    fighters.innerHTML += `<img src=${currentGame.mode[i].img} alt=${currentGame.mode[i].fighter}>`
   }
 }
 
@@ -133,15 +134,15 @@ function generateRandomFighter(fighters) {
 
 function getUserFighter(event) {
  humanPlayer.currentChoice = event.target;
-  for (var i = 0; i < currentMode.length; i++) {
-    if (event.target.alt.includes(currentMode[i].fighter)) {
-     humanPlayer.currentChoice = currentMode[i];
+  for (var i = 0; i < currentGame.mode.length; i++) {
+    if (event.target.alt.includes(currentGame.mode[i].fighter)) {
+     humanPlayer.currentChoice = currentGame.mode[i];
     }
   }
 }
 
 function renderResult() {
-  computerPlayer.currentChoice = generateRandomFighter(currentMode);
+  computerPlayer.currentChoice = generateRandomFighter(currentGame.mode);
   result.innerHTML = `
     <img src=${humanPlayer.currentChoice.img} alt=${humanPlayer.currentChoice.fighter}>
     <img src=${computerPlayer.currentChoice.img} alt=${computerPlayer.currentChoice.fighter}>
