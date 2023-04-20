@@ -27,6 +27,8 @@ var subline = document.querySelector('header>h2');
 // BUTTON
 var loginButton = document.querySelector('.log-in-button');
 var registerButton = document.querySelector('.register-button');
+var cancelRegisterButton = document.querySelector('.cancel-register-button')
+var createAccountButton = document.querySelector('.create-account-button')
 var asGuestButton = document.querySelector('.as-guest-button');
 var changeGameButton = document.querySelector('.change-game-button');
 
@@ -34,6 +36,7 @@ var changeGameButton = document.querySelector('.change-game-button');
 
 // event listeneres
 window.addEventListener('load', displayLogIn)
+// game view
 gameBoard.addEventListener('click', event => {
   if (event.target.classList.contains('mode') || event.target.parentElement.classList.contains('mode')) {
     displayFighters(event);
@@ -48,13 +51,21 @@ gameBoard.addEventListener('click', event => {
 });
 
 changeGameButton.addEventListener('click', displayHome);
+
+// log in view
 loginButton.addEventListener('click', displayHome);
+registerButton.addEventListener('click', displayRegister);
+asGuestButton.addEventListener('click', displayHome);
+
+// register view
+cancelRegisterButton.addEventListener('click', displayLogIn);
+createAccountButton.addEventListener('click', displayHome);
 
 // event handlers
 function createPlayer(name, token, wins) {
   var player = {
-    name: name || 'Human',
-    token: token|| '👻',
+    name: name || 'tourist',
+    token: token|| '👤',
     wins: wins || 0
   }
   return player;
@@ -92,12 +103,16 @@ function displayLogIn() {
   var itemsToShow= [loginView];
   ifShowItems(itemsToShow, true);
   // to hide
-  var itemsToHide = [gameView];
+  var itemsToHide = [gameView, registerView];
   ifShowItems(itemsToHide, false);
-  
+}
 
-  // ifShowItem(loginView, true);
-  // ifShowItem(gameView, false);
+function displayRegister() {
+  var itemsToShow= [registerView];
+  ifShowItems(itemsToShow, true);
+  // to hide
+  var itemsToHide = [gameView, loginView];
+  ifShowItems(itemsToHide, false);
 }
 /**
  * html: form (create your own, or continue as a guest)
@@ -119,20 +134,14 @@ function displayLogIn() {
 
 // home-page
 function displayHome() {
-  renderWins(players);
+  renderPlayers(players);
 
     // to show
     var itemsToShow= [gameView].concat(Array.from(modes));
     ifShowItems(itemsToShow, true);
     // to hide
-    var itemsToHide = [result, fighters, loginView];
+    var itemsToHide = [result, fighters, loginView, registerView];
     ifShowItems(itemsToHide, false);
-
-  // ifShowItem(gameView, true);
-  // ifShowCollection(modes, true);
-  // ifShowItem(result, false);
-  // ifShowItem(fighters, false);
-  // ifShowItem(loginView, false);
 }
 
 // chose-a-fighter-page
@@ -148,7 +157,7 @@ function getGameMode(event) {
 
 function displayFighters(event) {
   getGameMode(event);
-  renderGameBoard(currentGame.mode);
+  renderFighters(currentGame.mode);
 
   // to show
   var itemsToShow = [fighters, changeGameButton];
@@ -156,13 +165,6 @@ function displayFighters(event) {
   // to hide
   var itemsToHide = [loginView, result].concat(Array.from(modes));
   ifShowItems(itemsToHide, false);
-
-  // ifShowItem(changeGameButton, true);
-  // ifShowItem(fighters, true);
-  // ifShowCollection(modes, false);
-  // ifShowItem(result, false);
-  // ifShowItem(loginView, false);
-
   showMessage('Choose your fighter!');
 }
 
@@ -205,7 +207,7 @@ function displayResult(event) {
     // ifShowItem(fighters, false);
     // ifShowItem(result, true);
     renderResult();
-    renderWins(players);
+    renderPlayers(players);
     showResultText();  
 }
 

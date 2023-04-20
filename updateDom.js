@@ -1,21 +1,3 @@
-// function ifShowCollection(collection, choice) {
-//   for (var i = 0; i < collection.length; i++) {
-//     if (!choice) {
-//       modes[i].classList.add('hidden');
-//     } else {
-//       modes[i].classList.remove('hidden');
-//     }
-//   };
-// }
-
-// function ifShowItem(item, choice) {
-//   if (!choice) {
-//     item.classList.add('hidden');
-//   } else {
-//     item.classList.remove('hidden');
-//   }
-// }
-
 function ifShowItems(items, choice) {
   for (var i = 0; i < items.length; i++) {
     if (!choice) {
@@ -31,7 +13,7 @@ function showMessage(message) {
 }
 
 
-function renderGameBoard(mode) {
+function renderFighters(mode) {
   fighters.innerHTML = '';
   for (var i = 0; i < 5; i++) {
     if (!mode[i]) {
@@ -49,7 +31,7 @@ function renderResult() {
   `;
 }
 
-function renderWins(players) {
+function renderPlayers(players) {
   var leftChildren = players[0].children;
   leftChildren[0].innerText = humanPlayer.token;
   leftChildren[1].innerText = humanPlayer.name;

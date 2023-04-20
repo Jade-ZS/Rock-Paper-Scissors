@@ -21,10 +21,39 @@
     </form>
 
     <!-- REGISTER PAGE -->
-    <form class="view register-view">register here</form>
+    <form class="view register-view">
+      <lable for="token">choose your avatar: </lable>
+      <select name="token-choices">
+        <option value="👤">    👤    </option>
+        <option value="👧🏻">    👧🏻    </option>
+        <option value="👨🏻">    👨🏻    </option>
+        <option value="🧚🏻‍♂️">    🧚🏻‍♂️    </option>
+        <option value="🐒">    🐒    </option>
+        <option value="🐣">    🐣    </option>
+        <option value="🐶">    🐶    </option>
+        <option value="🐷">    🐷    </option>
+        <option value="🐻‍❄️">    🐻‍❄️    </option>
+        <option value="🦁">    🦁    </option>
+        <option value="🦄">    🦄    </option>
+        <option value="🐰">    🐰    </option>
+        <option value="customize">customize</option>
+      </select>
+      <div class="customize-avator hidden">
+        <input type="file" accept="image/png, image/jpeg">
+        <button type="button" class="upload-image-button">upload</button>
+      </div>
+
+      <lable for="name">username: </lable>
+      <input type="text" required>
+      <lable for="password">password: </lable>
+      <input type="text" required>
+
+      <button type="button" class="create-account-button">create account</button>
+      <button type="button" class="cancel-register-button">cancel</button>
+    </form>
 
     <!-- LOG-OUT PAGE (maybe use nav for this one, after logout, bring to log out page, add settimeout and bring back to log in page after 5 seconds)-->
-    <nav>???</nav>
+    <nav></nav> 
 
     <!-- GAME SECTION -->
     <main class="view game-view">  
