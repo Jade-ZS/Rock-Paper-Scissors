@@ -31,7 +31,7 @@ var changeGameButton = document.querySelector('#change-game-button');
 
 // event listeneres
 gameBoard.addEventListener('click', event => {
-  if (event.target.nodeName !== 'IMG') {
+  if (event.target.classList.contains('mode') || event.target.parentElement.classList.contains('mode')) {
     displayGame(event);
   }
 });
