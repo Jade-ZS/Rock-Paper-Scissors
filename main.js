@@ -27,6 +27,7 @@ var players = document.getElementsByClassName('player');
 
 
 // event listeneres
+window.addEventListener('load', displayInitialView)
 gameBoard.addEventListener('click', event => {
   if (event.target.classList.contains('mode') || event.target.parentElement.classList.contains('mode')) {
     displayGame(event);
@@ -88,6 +89,7 @@ function ifShowItem(item, choice) {
 }
 
 function displayInitialView() {
+  displayWins(players);
   ifShowCollection(modes, true);
   ifShowItem(result, false);
   ifShowItem(fighters, false);
