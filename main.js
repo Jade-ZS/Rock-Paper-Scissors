@@ -36,7 +36,7 @@ gameBoard.addEventListener('click', event => {
 gameBoard.addEventListener('click', event => {
   if (event.target.nodeName === 'IMG' && !fighters.classList.contains('hidden')) {
     displayResult(event);
-    setTimeout((event) => {displayGame(event)}, 2000);
+    setTimeout(resetGameBoard, 2000);
   }
 });
 
@@ -109,27 +109,29 @@ function getGameMode(event) {
   return currentGame.mode;
 }
 
-function renderGameMode(event) {
-  if (!currentGame.mode) {
-    getGameMode(event);
-  } 
-
+function renderGameBoard(mode) {
   fighters.innerHTML = '';
   for (var i = 0; i < 5; i++) {
-    if (!currentGame.mode[i]) {
+    if (!mode[i]) {
       return;
     }
-    fighters.innerHTML += `<img src=${currentGame.mode[i].img} alt=${currentGame.mode[i].fighter}>`
+    fighters.innerHTML += `<img src=${mode[i].img} alt=${mode[i].fighter}>`
   }
 }
 
 function displayGame(event) {
+  getGameMode(event);
+  renderGameBoard(currentGame.mode);
   ifShowCollection(modes, false);
   ifShowItem(changeGameButton, true);
   ifShowItem(fighters, true);
   ifShowItem(result, false);
   showMessage('Choose your fighter!');
-  renderGameMode(event);
+}
+
+function resetGameBoard() {
+  ifShowItem(fighters, true);
+  ifShowItem(result, false);
 }
 
 // determine winner page
