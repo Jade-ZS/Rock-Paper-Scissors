@@ -13,17 +13,17 @@
 - Apr 18 (Tue): 
     - [X] basic `HTML` & `CSS`
 - Apr 19 (Wed):
-    - [ ] `createPlayer` function should return an object with the following properties: 
+    - [X] `createPlayer` function should return an object with the following properties: 
         - name (ex: 'Human'), token (ex: '👩🏻'), wins (ex: 0)
-    - [ ] A `createGame` function that should return a game object containing:
+    - [X] A `createGame` function that should return a game object containing:
         - Two Player objects (player1 and player2)
         - A way to keep track of the data for the game board
         - A way to keep track of the selected game type
-    - [ ] design a game data model
+    - [X] design a game data model
     - [X] Create central game board on the DOM
-    - [ ] Connect game data model to the DOM
-    - [ ] Display the player data in the sidebars
-    - [ ] Automatically reset the game board to allow for a new game to be played after the previous game is won
+    - [X] Connect game data model to the DOM
+    - [X] Display the player data in the sidebars
+    - [X] Automatically reset the game board to allow for a new game to be played after the previous game is won
     - [ ] refactor before start extension 
     
 

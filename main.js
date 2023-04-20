@@ -1,5 +1,4 @@
 // variables
-/** TODO: fix name and token later (hard coded in html, need to be fixed as well) */
 var humanPlayer = createPlayer();
 var computerPlayer = createPlayer('computer', '💻');
 var currentGame = createGame(humanPlayer, computerPlayer);
@@ -37,6 +36,7 @@ gameBoard.addEventListener('click', event => {
 gameBoard.addEventListener('click', event => {
   if (event.target.nodeName === 'IMG' && !fighters.classList.contains('hidden')) {
     displayResult(event);
+    setTimeout((event) => {displayGame(event)}, 2000);
   }
 });
 
@@ -110,7 +110,10 @@ function getGameMode(event) {
 }
 
 function renderGameMode(event) {
-  currentGame.mode = getGameMode(event);
+  if (!currentGame.mode) {
+    getGameMode(event);
+  } 
+
   fighters.innerHTML = '';
   for (var i = 0; i < 5; i++) {
     if (!currentGame.mode[i]) {
@@ -124,6 +127,7 @@ function displayGame(event) {
   ifShowCollection(modes, false);
   ifShowItem(changeGameButton, true);
   ifShowItem(fighters, true);
+  ifShowItem(result, false);
   showMessage('Choose your fighter!');
   renderGameMode(event);
 }
@@ -161,7 +165,7 @@ function displayResult(event) {
     var winner = determineWinner(humanPlayer, computerPlayer);
     var message;
     if (winner) {
-      message = `${winner.name} won!`; // TO DO: improve this, chagnge this to player's name
+      message = `${winner.name} won!`; 
     } else {
       message = `It's a draw!`;
     }
