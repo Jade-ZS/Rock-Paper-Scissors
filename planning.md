@@ -11,7 +11,7 @@
 
 #### Timeline
 - Apr 18 (Tue): 
-    - basic `HTML` & `CSS`
+    - [X] basic `HTML` & `CSS`
 - Apr 19 (Wed):
     - [ ] `createPlayer` function should return an object with the following properties: 
         - name (ex: 'Human'), token (ex: '👩🏻'), wins (ex: 0)
@@ -20,7 +20,7 @@
         - A way to keep track of the data for the game board
         - A way to keep track of the selected game type
     - [ ] design a game data model
-    - [ ] Create central game board on the DOM
+    - [X] Create central game board on the DOM
     - [ ] Connect game data model to the DOM
     - [ ] Display the player data in the sidebars
     - [ ] Automatically reset the game board to allow for a new game to be played after the previous game is won

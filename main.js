@@ -1,13 +1,8 @@
 // variables
 /** TODO: fix name and token later (hard coded in html, need to be fixed as well) */
-var player1 = createPlayer();
-var player2 = createPlayer();
-var currentWinner;
-var playerChoice;
-var computerChoice;
+var humanPlayer = createPlayer();
+var computerPlayer = createPlayer('computer', '💻');
 var currentMode;
-// var easyMode = ['rock', 'paper', 'scissors'];
-// var difficultMode = easyMode.concat(['lizard', 'alien']);
 var easyMode = [
   {fighter:'rock', img:'./assets/happy-rocks.png'},
   {fighter:'paper', img:'./assets/happy-paper.png'},
@@ -24,7 +19,8 @@ var modes = gameBoard.getElementsByClassName('mode');
 var subline = document.querySelector('header>h2');
 var fighters = document.querySelector('.fighters');
 var result = document.querySelector('.result');
-var changeGameButton = document.querySelector('#change-game-button');
+var changeGameButton = document.querySelector('.change-game-button');
+var players = document.getElementsByClassName('player');
 
 
 
@@ -45,11 +41,9 @@ gameBoard.addEventListener('click', event => {
 changeGameButton.addEventListener('click', displayInitialView);
 
 // event handlers
-
-// data model generator. to be fixed
 function createPlayer(name, token, wins) {
   var player = {
-    name: name || 'Unknown',
+    name: name || 'Human',
     token: token|| '👻',
     wins: wins || 0
   }
@@ -57,13 +51,11 @@ function createPlayer(name, token, wins) {
   return player;
 }
 
-// idea: fighters is an array, player1's fighter and player2's fighter in each round
-function createGame(fighters, type) {
+function createGame(player1, player2, mode) {
   var game = {
     player1: player1,
     player2: player2,
-    fighters: fighters,
-    type: type
+    mode: mode
   }
   return game;
 }
@@ -76,7 +68,6 @@ function createGame(fighters, type) {
 
 
 // game page - choose a fighter page
-// TO DO: refactor- turn into one function ifShowItem(item, choice){}
 function ifShowCollection(collection, choice) {
   for (var i = 0; i < collection.length; i++) {
     if (!choice) {
@@ -134,9 +125,6 @@ function displayGame(event) {
   renderGameMode(event);
 }
 
-// display players' fighter choices
-
-
 // determine winner page
 function generateRandomFighter(fighters) {
   var index = Math.floor(fighters.length * Math.random());
@@ -144,25 +132,22 @@ function generateRandomFighter(fighters) {
 }
 
 function getUserFighter(event) {
-  playerChoice = event.target
+ humanPlayer.currentChoice = event.target;
   for (var i = 0; i < currentMode.length; i++) {
     if (event.target.alt.includes(currentMode[i].fighter)) {
-      playerChoice = currentMode[i];
+     humanPlayer.currentChoice = currentMode[i];
     }
   }
 }
 
-
 function renderResult() {
-  computerChoice = generateRandomFighter(currentMode);
+  computerPlayer.currentChoice = generateRandomFighter(currentMode);
   result.innerHTML = `
-    <img src=${playerChoice.img} alt=${playerChoice.fighter}>
-    <img src=${computerChoice.img} alt=${computerChoice.fighter}>
+    <img src=${humanPlayer.currentChoice.img} alt=${humanPlayer.currentChoice.fighter}>
+    <img src=${computerPlayer.currentChoice.img} alt=${computerPlayer.currentChoice.fighter}>
   `;
 }
 
-
-// refactor TO DO
 function displayResult(event) {
     getUserFighter(event);
     ifShowItem(fighters, false);
@@ -170,32 +155,44 @@ function displayResult(event) {
     renderResult();
 
     // render text
-    var winner = determineWinner(playerChoice, computerChoice);
+    var winner = determineWinner(humanPlayer, computerPlayer);
     var message;
     if (winner) {
-      message = `${winner.fighter} wins!`; // TO DO: improve this, chagnge this to player's name
+      message = `${winner.name} won!`; // TO DO: improve this, chagnge this to player's name
     } else {
       message = `It's a draw!`;
     }
     showMessage(message);
+    displayWins(players);
 }
 
 function determineWinner(player1, player2) {
   var winner;
-  var condition1 = player1.fighter === 'rock' && player2.fighter === ('scissors'||'lizard');
-  var condition2 = player1.fighter === 'paper' && player2.fighter === ('rock'||'alien');
-  var condition3 = player1.fighter === 'scissors' && player2.fighter === ('paper'||'lizard');
-  var condition4 = player1.fighter === 'lizard' && player2.fighter === ('paper'||'alien');
-  var condition5 = player1.fighter === 'alien' && player2.fighter === ('scissors'||'rock');
+  var condition1 = player1.currentChoice.fighter === 'rock' && player2.currentChoice.fighter === ('scissors'||'lizard');
+  var condition2 = player1.currentChoice.fighter === 'paper' && player2.currentChoice.fighter === ('rock'||'alien');
+  var condition3 = player1.currentChoice.fighter === 'scissors' && player2.currentChoice.fighter === ('paper'||'lizard');
+  var condition4 = player1.currentChoice.fighter === 'lizard' && player2.currentChoice.fighter === ('paper'||'alien');
+  var condition5 = player1.currentChoice.fighter === 'alien' && player2.currentChoice.fighter === ('scissors'||'rock');
   if (condition1||condition2||condition3||condition4||condition5) {
-    winner = player1; // To DO: change this to player object
-  } else if (player1.fighter === player2.fighter) {
-    return false; // TO DO: improve this
+    winner = player1; 
+  } else if (player1.currentChoice.fighter === player2.currentChoice.fighter) {
+    return false; 
   } else {
-    winner = player2; // TO DO: change this to player object
+    winner = player2; 
   }
+  winner.wins+=1;
   return winner;
 }
 
+function displayWins(players) {
+  var leftChildren = players[0].children;
+  leftChildren[0].innerText = humanPlayer.token;
+  leftChildren[1].innerText = humanPlayer.name;
+  leftChildren[2].innerText = `Wins: ${humanPlayer.wins}`;
 
+  var rightChildren = players[1].children;
+  rightChildren[0].innerText = computerPlayer.token;
+  rightChildren[1].innerText = computerPlayer.name;
+  rightChildren[2].innerText = `Wins: ${computerPlayer.wins}`;
+}
 
