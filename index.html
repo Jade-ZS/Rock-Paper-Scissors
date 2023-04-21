@@ -12,56 +12,50 @@
     <!-- LOG-IN PAGE -->
     <form class="view login-view">
       <div>
-        <lable for="name">username: </lable>
+        <lable for="token">choose your avatar: </lable>
+        <select name="token-choices">
+          <option value="👤">👤</option>
+          <option value="👧🏻">👧🏻</option>
+          <option value="👨🏻">👨🏻</option>
+          <option value="🧚🏻‍♂️">🧚🏻‍♂️</option>
+          <option value="🐒">🐒</option>
+          <option value="🐣">🐣</option>
+          <option value="🐶">🐶</option>
+          <option value="🐷">🐷</option>
+          <option value="🐻‍❄️">🐻‍❄️</option>
+          <option value="🦁">🦁</option>
+          <option value="🦄">🦄</option>
+          <option value="🐰">🐰</option>
+          <div class="customize-avator">
+            <option value="customize">upload your own</option>
+            <input type="file" accept="image/png, image/jpeg" class="hidden">
+            <button type="button" class="upload-image-button hidden">upload</button>
+          </div>
+          
+        </select>
+      </div>
+      
+      <div>
+        <lable for="name">choose a name: </lable>
         <input type="text" required />
       </div>
-      <div>
+      <!-- <div>
         <lable for="password">password: </lable>
         <input type="text" required />
-      </div>
-      <button type="submit" class="log-in-button">log in</button>
-      <button type="button" class="register-button">register</button>
+      </div> -->
+      <button type="submit" class="start-game-button">start game</button>
+      <!-- <button type="button" class="register-button">register</button> -->
       <button type="button" class="as-guest-button">continue as guest</button>
     </form>
-
-    <!-- REGISTER PAGE -->
-    <form class="view register-view">
-      <lable for="token">choose your avatar: </lable>
-      <select name="token-choices">
-        <option value="👤">    👤    </option>
-        <option value="👧🏻">    👧🏻    </option>
-        <option value="👨🏻">    👨🏻    </option>
-        <option value="🧚🏻‍♂️">    🧚🏻‍♂️    </option>
-        <option value="🐒">    🐒    </option>
-        <option value="🐣">    🐣    </option>
-        <option value="🐶">    🐶    </option>
-        <option value="🐷">    🐷    </option>
-        <option value="🐻‍❄️">    🐻‍❄️    </option>
-        <option value="🦁">    🦁    </option>
-        <option value="🦄">    🦄    </option>
-        <option value="🐰">    🐰    </option>
-        <option value="customize">customize</option>
-      </select>
-      <div class="customize-avator hidden">
-        <input type="file" accept="image/png, image/jpeg">
-        <button type="button" class="upload-image-button">upload</button>
-      </div>
-      <lable for="name">username: </lable>
-      <input type="text" required>
-      <lable for="password">password: </lable>
-      <input type="text" required>
-      <button type="button" class="create-account-button">create account</button>
-      <button type="button" class="cancel-register-button">cancel</button>
-    </form>
-
-    <!-- LOG-OUT PAGE (maybe use nav for this one, after logout, bring to log out page, add settimeout and bring back to log in page after 5 seconds)-->
-    <nav></nav> 
+<!-- 
+    LOG-OUT PAGE (maybe use nav for this one, after logout, bring to log out page, add settimeout and bring back to log in page after 5 seconds)
+    <nav></nav>  -->
 
     <!-- GAME SECTION -->
     <main class="view game-view">  
        <!-- human player section -->
       <section class="player">
-        <h2>👧🏻</h2>
+        <h1>👧🏻</h1>
         <h2>Human</h2>
         <h4>Wins: 0</h4>
         <button type="button" class="change-game-button hidden">Change Game</button>
@@ -99,7 +93,7 @@
 
       <!-- computer player section -->
       <section class="player">
-        <h2>💻</h2>
+        <h1>💻</h1>
         <h2>Computer</h2>
         <h4>Wins: 0</h4>
       </section>

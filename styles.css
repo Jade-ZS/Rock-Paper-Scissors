@@ -60,7 +60,6 @@ img {
 }
 
 /* log in page */
-.register-view,
 .login-view {
   display: flex;
   justify-content: center;
@@ -68,6 +67,10 @@ img {
   height: 30%;
   width: 30%;
   border-radius: 10px;
+}
+
+select {
+  text-align: center;
 }
 
 /* player section */

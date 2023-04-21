@@ -13,6 +13,11 @@ var difficultMode = easyMode.concat(
   {fighter:'alien', img:'./assets/happy-alien.png'}
 );
 
+
+
+
+
+
 // view
 var loginView = document.querySelector('.login-view');
 var registerView = document.querySelector('.register-view');
@@ -25,7 +30,7 @@ var modes = gameBoard.getElementsByClassName('mode');
 var subline = document.querySelector('header>h2');
 
 // BUTTON
-var loginButton = document.querySelector('.log-in-button');
+// var loginButton = document.querySelector('.log-in-button');
 var registerButton = document.querySelector('.register-button');
 var cancelRegisterButton = document.querySelector('.cancel-register-button')
 var createAccountButton = document.querySelector('.create-account-button')
@@ -33,9 +38,26 @@ var asGuestButton = document.querySelector('.as-guest-button');
 var changeGameButton = document.querySelector('.change-game-button');
 
 
+// local storage
+var avatarField = loginView.children[0].children[1];
+var nameField = loginView.children[1].children[1];
+
 
 // event listeneres
 window.addEventListener('load', displayLogIn)
+
+// log in view
+// registerButton.addEventListener('click', displayRegister);
+asGuestButton.addEventListener('click', displayHome);
+loginView.addEventListener('submit', event => {
+  event.preventDefault();
+  humanPlayer.name = nameField.value;
+  humanPlayer.avatar = avatarField.value;
+  displayHome();
+
+});
+
+
 // game view
 gameBoard.addEventListener('click', event => {
   if (event.target.classList.contains('mode') || event.target.parentElement.classList.contains('mode')) {
@@ -52,24 +74,17 @@ gameBoard.addEventListener('click', event => {
 
 changeGameButton.addEventListener('click', displayHome);
 
-// log in view
-registerButton.addEventListener('click', displayRegister);
-asGuestButton.addEventListener('click', displayHome);
 
-loginView.addEventListener('submit', event => {
-  event.preventDefault();
-  displayHome();
-});
 
 // register view
-cancelRegisterButton.addEventListener('click', displayLogIn);
-createAccountButton.addEventListener('click', displayHome);
+// cancelRegisterButton.addEventListener('click', displayLogIn);
+// createAccountButton.addEventListener('click', displayHome);
 
 // event handlers
-function createPlayer(name, token, wins) {
+function createPlayer(name, avatar, wins) {
   var player = {
     name: name || 'tourist',
-    token: token|| '👤',
+    avatar: avatar|| '👤',
     wins: wins || 0
   }
   return player;
@@ -107,20 +122,20 @@ function displayLogIn() {
   var itemsToShow= [loginView];
   ifShowItems(itemsToShow, true);
   // to hide
-  var itemsToHide = [gameView, registerView];
+  var itemsToHide = [gameView];
   ifShowItems(itemsToHide, false);
 }
 
-function displayRegister() {
-  var itemsToShow= [registerView];
-  ifShowItems(itemsToShow, true);
-  // to hide
-  var itemsToHide = [gameView, loginView];
-  ifShowItems(itemsToHide, false);
-}
+// function displayRegister() {
+//   var itemsToShow= [registerView];
+//   ifShowItems(itemsToShow, true);
+//   // to hide
+//   var itemsToHide = [gameView, loginView];
+//   ifShowItems(itemsToHide, false);
+// }
 /**
  * html: form (create your own, or continue as a guest)
- * - username, token (allow upload)
+ * - username, avatar (allow upload)
  * - local storage, password
  * js: update humanplayer based on form information
  * js: connect to local storage
@@ -128,7 +143,7 @@ function displayRegister() {
  * if own, local storage
  * 
  * local storage
- * username, token, password, wins
+ * username, avatar, password, wins
  * game history
  */
 
@@ -144,7 +159,7 @@ function displayHome() {
     var itemsToShow= [gameView].concat(Array.from(modes));
     ifShowItems(itemsToShow, true);
     // to hide
-    var itemsToHide = [result, fighters, loginView, registerView];
+    var itemsToHide = [result, fighters, loginView];
     ifShowItems(itemsToHide, false);
 }
 

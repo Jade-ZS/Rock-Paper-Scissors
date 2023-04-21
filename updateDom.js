@@ -33,12 +33,12 @@ function renderResult() {
 
 function renderPlayers(players) {
   var leftChildren = players[0].children;
-  leftChildren[0].innerText = humanPlayer.token;
+  leftChildren[0].innerText = humanPlayer.avatar;
   leftChildren[1].innerText = humanPlayer.name;
   leftChildren[2].innerText = `Wins: ${humanPlayer.wins}`;
 
   var rightChildren = players[1].children;
-  rightChildren[0].innerText = computerPlayer.token;
+  rightChildren[0].innerText = computerPlayer.avatar;
   rightChildren[1].innerText = computerPlayer.name;
   rightChildren[2].innerText = `Wins: ${computerPlayer.wins}`;
 }
