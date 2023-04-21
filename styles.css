@@ -73,6 +73,10 @@ select {
   text-align: center;
 }
 
+.customize-avatar-section {
+  display: flex;
+}
+
 /* player section */
 .player {
   width: 15%;

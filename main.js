@@ -36,15 +36,44 @@ var cancelRegisterButton = document.querySelector('.cancel-register-button')
 var createAccountButton = document.querySelector('.create-account-button')
 var asGuestButton = document.querySelector('.as-guest-button');
 var changeGameButton = document.querySelector('.change-game-button');
+var uploadButton = document.querySelector('.upload-image-button');
 
+var imgUploadSection = document.querySelector('.customize-avatar-section');
+var fileInput = imgUploadSection.children[0];
 
 // local storage
 var avatarField = loginView.children[0].children[1];
 var nameField = loginView.children[1].children[1];
 
 
+fileInput.addEventListener('change', ()=> {
+  console.log(fileInput.files);
+  var reader = new FileReader();
+  console.log('reader:', reader);
+  reader.onload = function() {
+    console.log(reader.result)
+  }
+  reader.readAsText(fileInput);
+});
+
 // event listeneres
-window.addEventListener('load', displayLogIn)
+window.addEventListener('load', () => {
+  if (localStorage.length) {
+    displayHome();
+  } else {
+    displayLogIn();
+  }
+});
+
+avatarField.addEventListener('change', ()=> {
+  if(avatarField.value === 'customize') {
+    ifShowItems([imgUploadSection], true);
+  } else {
+    ifShowItems([imgUploadSection], false);
+  }
+});
+
+// uploadButton.addEventListener()
 
 // log in view
 // registerButton.addEventListener('click', displayRegister);
@@ -104,6 +133,10 @@ function createGame(player1, player2) {
  * takeTurn
  */
 
+function uploadImage() {
+  ifShowItems([imgUploadSection], true);
+}
+
 function showResultText() {
   // render text
   var winner = determineWinner(humanPlayer, computerPlayer);
@@ -126,28 +159,14 @@ function displayLogIn() {
   ifShowItems(itemsToHide, false);
 }
 
-// function displayRegister() {
-//   var itemsToShow= [registerView];
-//   ifShowItems(itemsToShow, true);
-//   // to hide
-//   var itemsToHide = [gameView, loginView];
-//   ifShowItems(itemsToHide, false);
-// }
-/**
- * html: form (create your own, or continue as a guest)
- * - username, avatar (allow upload)
- * - local storage, password
- * js: update humanplayer based on form information
- * js: connect to local storage
- * if guest, not local storage
- * if own, local storage
- * 
- * local storage
- * username, avatar, password, wins
- * game history
- */
 
-// register-page
+/** if (localStorage) {
+  // bring to game page
+} else {
+  // bring to login page
+}
+*/ 
+
 
 //
 
