@@ -60,6 +60,7 @@ img {
 }
 
 /* log in page */
+.register-view,
 .login-view {
   display: flex;
   justify-content: center;

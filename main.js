@@ -53,9 +53,13 @@ gameBoard.addEventListener('click', event => {
 changeGameButton.addEventListener('click', displayHome);
 
 // log in view
-loginButton.addEventListener('click', displayHome);
 registerButton.addEventListener('click', displayRegister);
 asGuestButton.addEventListener('click', displayHome);
+
+loginView.addEventListener('submit', event => {
+  event.preventDefault();
+  displayHome();
+});
 
 // register view
 cancelRegisterButton.addEventListener('click', displayLogIn);
