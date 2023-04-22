@@ -39,22 +39,45 @@ var changeGameButton = document.querySelector('.change-game-button');
 var uploadButton = document.querySelector('.upload-image-button');
 
 var imgUploadSection = document.querySelector('.customize-avatar-section');
-var fileInput = imgUploadSection.children[0];
+var imgInput = imgUploadSection.children[0];
+var uploadedImg;
 
 // local storage
 var avatarField = loginView.children[0].children[1];
 var nameField = loginView.children[1].children[1];
 
+// Failed Version 1 ----------
+// fileInput.addEventListener('change', ()=> {
+//   console.log(fileInput.files);
+//   var reader = new FileReader();
+//   console.log('reader:', reader);
+//   reader.onload = function() {
+//     console.log(reader.result)
+//   }
+//   reader.readAsDataURL(fileInput[0]);
+// });
 
-fileInput.addEventListener('change', ()=> {
-  console.log(fileInput.files);
-  var reader = new FileReader();
-  console.log('reader:', reader);
-  reader.onload = function() {
-    console.log(reader.result)
-  }
-  reader.readAsText(fileInput);
-});
+// Failed Version 2 ---------
+// imgInput.addEventListener('change', (event) =>{
+//   var reader = new FileReader();
+//   console.log('reader: ', reader)
+//   reader.addEventListener('load', function() {
+//     uploadedImg = reader.result;
+//     console.log('reader: ', reader);
+//     console.log('uploadedImg: ', uploadedImg);
+//   });
+//   console.log('event target: ', event.target.files)
+//   console.log('readerAsURL: ', reader.readAsDataURL(this.files[0])) 
+
+// });
+
+// Version 3
+imgInput.addEventListener('change', (event) => {
+  imgInput.src = URL.createObjectURL(event.target.files[0]);
+  console.log(imgInput)
+  humanPlayer.avatar = imgInput;
+  console.log(humanPlayer);
+}); 
 
 // event listeneres
 window.addEventListener('load', () => {
