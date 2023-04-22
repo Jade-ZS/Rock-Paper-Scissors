@@ -59,7 +59,11 @@ avatarField.addEventListener('change', ()=> {
 loginView.addEventListener('submit', event => {
   event.preventDefault();
   currentGame.humanPlayer.name = nameField.value;
-  currentGame.humanPlayer.avatar = avatarField.value;
+
+  if(avatarField.value !== "customize") {
+    currentGame.humanPlayer.avatar = avatarField.value;
+  }
+
   displayHome();
 });
 
