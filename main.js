@@ -25,19 +25,12 @@ var changeGameButton = document.querySelector('.change-game-button');
 
 var imgUploadSection = document.querySelector('.customize-avatar-section');
 var imgInput = imgUploadSection.children[0];
-var uploadedImg;
+var imgURL;
 
 var avatarField = loginView.children[0].children[1];
 var nameField = loginView.children[1].children[1];
 
 
-// bug
-imgInput.addEventListener('change', (event) => {
-  imgInput.src = URL.createObjectURL(event.target.files[0]);
-  console.log(imgInput)
-  current.game.humanPlayer.avatar = imgInput;
-  console.log(currentGame.humanPlayer);
-}); 
 
 // event listeneres
 window.addEventListener('load', () => {
@@ -62,10 +55,27 @@ loginView.addEventListener('submit', event => {
 
   if(avatarField.value !== "customize") {
     currentGame.humanPlayer.avatar = avatarField.value;
+  } else {
+    // to do
+    currentGame.humanPlayer.avatar = {imgSrc: imgURL};
   }
 
   displayHome();
 });
+
+// bug
+
+imgInput.addEventListener('change', (event) => {
+  var img = imgInput.files[0];
+  var reader = new FileReader();
+
+  reader.addEventListener('load', (event) => {
+     imgURL = reader.result;
+  });
+
+  reader.readAsDataURL(img);
+}); 
+
 
 gameBoard.addEventListener('click', event => {
   if (event.target.classList.contains('mode') || event.target.parentElement.classList.contains('mode')) {

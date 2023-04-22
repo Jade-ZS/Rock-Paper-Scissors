@@ -60,9 +60,9 @@ p {
 }
 
 /* button */
-button {
+/* button {
   
-}
+} */
 
 /* fighters-view */
 img {
@@ -98,6 +98,10 @@ select {
   cursor: pointer;
   height: 40px;
   border-radius: 5px;
+}
+
+.player img {
+  height: 1.5em;
 }
 
 

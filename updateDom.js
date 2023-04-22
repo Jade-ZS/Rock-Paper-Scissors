@@ -33,7 +33,11 @@ function renderResult() {
 
 function renderPlayers(players) {
   var leftChildren = players[0].children;
-  leftChildren[0].innerText = currentGame.humanPlayer.avatar;
+  if (typeof currentGame.humanPlayer.avatar !== 'string') {
+    leftChildren[0].innerHTML = `<img src=${currentGame.humanPlayer.avatar.imgSrc}>`
+  } else {
+    leftChildren[0].innerText = currentGame.humanPlayer.avatar;
+  }
   leftChildren[1].innerText = currentGame.humanPlayer.name;
   leftChildren[2].innerText = `Wins: ${currentGame.humanPlayer.wins}`;
 
