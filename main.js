@@ -13,11 +13,6 @@ var difficultMode = easyMode.concat(
   {fighter:'alien', img:'./assets/happy-alien.png'}
 );
 
-
-
-
-
-
 // view
 var loginView = document.querySelector('.login-view');
 var registerView = document.querySelector('.register-view');
@@ -102,12 +97,6 @@ gameBoard.addEventListener('click', event => {
 
 changeGameButton.addEventListener('click', displayHome);
 
-
-
-// register view
-// cancelRegisterButton.addEventListener('click', displayLogIn);
-// createAccountButton.addEventListener('click', displayHome);
-
 // event handlers
 function createPlayer(name, avatar, wins) {
   var player = {
@@ -137,7 +126,6 @@ function uploadImage() {
 }
 
 function showResultText() {
-  // render text
   var winner = determineWinner(humanPlayer, computerPlayer);
   var message;
   if (winner) {
@@ -150,10 +138,8 @@ function showResultText() {
 
 // log-in-page
 function displayLogIn() {
-  // to show
   var itemsToShow= [loginView];
   ifShowItems(itemsToShow, true);
-  // to hide
   var itemsToHide = [gameView];
   ifShowItems(itemsToHide, false);
 }
@@ -206,18 +192,12 @@ function displayFighters(event) {
 }
 
 function resetGameBoard() {
-    // to show
     var itemsToShow= [fighters];
     ifShowItems(itemsToShow, true);
-    // to hide
     var itemsToHide = [result];
     ifShowItems(itemsToHide, false);
-
-  // ifShowItem(fighters, true);
-  // ifShowItem(result, false);
 }
 
-// Result-page
 function generateRandomFighter(fighters) {
   var index = Math.floor(fighters.length * Math.random());
   return fighters[index];
@@ -233,16 +213,12 @@ function getUserFighter(event) {
 }
 
 function displayResult(event) {
-    // to show
     var itemsToShow= [result];
     ifShowItems(itemsToShow, true);
-    // to hide
     var itemsToHide = [fighters];
     ifShowItems(itemsToHide, false);
 
     getUserFighter(event);
-    // ifShowItem(fighters, false);
-    // ifShowItem(result, true);
     renderResult();
     renderPlayers(players);
     showResultText();  
