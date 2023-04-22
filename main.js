@@ -1,8 +1,6 @@
 // variables
 // DATA model
-var humanPlayer = createPlayer();
-var computerPlayer = createPlayer('computer', '💻');
-var currentGame = createGame(humanPlayer, computerPlayer);
+var currentGame = createGame();
 var easyMode = [
   {fighter:'rock', img:'./assets/happy-rocks.png'},
   {fighter:'paper', img:'./assets/happy-paper.png'},
@@ -46,8 +44,8 @@ var nameField = loginView.children[1].children[1];
 imgInput.addEventListener('change', (event) => {
   imgInput.src = URL.createObjectURL(event.target.files[0]);
   console.log(imgInput)
-  humanPlayer.avatar = imgInput;
-  console.log(humanPlayer);
+  current.game.humanPlayer.avatar = imgInput;
+  console.log(currentGame.humanPlayer);
 }); 
 
 // event listeneres
@@ -74,8 +72,8 @@ avatarField.addEventListener('change', ()=> {
 asGuestButton.addEventListener('click', displayHome);
 loginView.addEventListener('submit', event => {
   event.preventDefault();
-  humanPlayer.name = nameField.value;
-  humanPlayer.avatar = avatarField.value;
+  currentGame.humanPlayer.name = nameField.value;
+  currentGame.humanPlayer.avatar = avatarField.value;
   displayHome();
 
 });
@@ -107,10 +105,12 @@ function createPlayer(name, avatar, wins) {
   return player;
 }
 
-function createGame(player1, player2) {
+function createGame() {
+  var humanPlayer = createPlayer();
+  var computerPlayer = createPlayer('computer', '💻');
   var game = {
-    player1: player1,
-    player2: player2,
+    humanPlayer: humanPlayer,
+    computerPlayer: computerPlayer
   }
   return game;
 }
@@ -126,7 +126,7 @@ function uploadImage() {
 }
 
 function showResultText() {
-  var winner = determineWinner(humanPlayer, computerPlayer);
+  var winner = determineWinner(currentGame.humanPlayer, currentGame.computerPlayer);
   var message;
   if (winner) {
     message = `${winner.name} won!`; 
@@ -204,10 +204,10 @@ function generateRandomFighter(fighters) {
 }
 
 function getUserFighter(event) {
- humanPlayer.currentChoice = event.target;
+ currentGame.humanPlayer.currentChoice = event.target;
   for (var i = 0; i < currentGame.mode.length; i++) {
     if (event.target.alt.includes(currentGame.mode[i].fighter)) {
-     humanPlayer.currentChoice = currentGame.mode[i];
+     currentGame.humanPlayer.currentChoice = currentGame.mode[i];
     }
   }
 }
@@ -220,8 +220,9 @@ function displayResult(event) {
 
     getUserFighter(event);
     renderResult();
-    renderPlayers(players);
     showResultText();  
+    renderPlayers(players);
+    
 }
 
 function determineWinner(player1, player2) {
