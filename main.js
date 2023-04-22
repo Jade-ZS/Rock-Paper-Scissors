@@ -46,32 +46,8 @@ var uploadedImg;
 var avatarField = loginView.children[0].children[1];
 var nameField = loginView.children[1].children[1];
 
-// Failed Version 1 ----------
-// fileInput.addEventListener('change', ()=> {
-//   console.log(fileInput.files);
-//   var reader = new FileReader();
-//   console.log('reader:', reader);
-//   reader.onload = function() {
-//     console.log(reader.result)
-//   }
-//   reader.readAsDataURL(fileInput[0]);
-// });
 
-// Failed Version 2 ---------
-// imgInput.addEventListener('change', (event) =>{
-//   var reader = new FileReader();
-//   console.log('reader: ', reader)
-//   reader.addEventListener('load', function() {
-//     uploadedImg = reader.result;
-//     console.log('reader: ', reader);
-//     console.log('uploadedImg: ', uploadedImg);
-//   });
-//   console.log('event target: ', event.target.files)
-//   console.log('readerAsURL: ', reader.readAsDataURL(this.files[0])) 
-
-// });
-
-// Version 3
+// bug
 imgInput.addEventListener('change', (event) => {
   imgInput.src = URL.createObjectURL(event.target.files[0]);
   console.log(imgInput)
