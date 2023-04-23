@@ -1,8 +1,5 @@
 // variables
-// DATA model
-var humanPlayer = createPlayer();
-var computerPlayer = createPlayer('computer', '💻');
-var currentGame = createGame(humanPlayer, computerPlayer);
+var currentGame = createGame();
 var easyMode = [
   {fighter:'rock', img:'./assets/happy-rocks.png'},
   {fighter:'paper', img:'./assets/happy-paper.png'},
@@ -13,12 +10,6 @@ var difficultMode = easyMode.concat(
   {fighter:'alien', img:'./assets/happy-alien.png'}
 );
 
-
-
-
-
-
-// view
 var loginView = document.querySelector('.login-view');
 var registerView = document.querySelector('.register-view');
 var gameView = document.querySelector('.game-view');
@@ -29,31 +20,17 @@ var players = document.getElementsByClassName('player');
 var modes = gameBoard.getElementsByClassName('mode');
 var subline = document.querySelector('header>h2');
 
-// BUTTON
-// var loginButton = document.querySelector('.log-in-button');
-var registerButton = document.querySelector('.register-button');
-var cancelRegisterButton = document.querySelector('.cancel-register-button')
-var createAccountButton = document.querySelector('.create-account-button')
 var asGuestButton = document.querySelector('.as-guest-button');
 var changeGameButton = document.querySelector('.change-game-button');
-var uploadButton = document.querySelector('.upload-image-button');
 
 var imgUploadSection = document.querySelector('.customize-avatar-section');
 var imgInput = imgUploadSection.children[0];
-var uploadedImg;
+var imgURL;
 
-// local storage
 var avatarField = loginView.children[0].children[1];
 var nameField = loginView.children[1].children[1];
 
 
-// bug
-imgInput.addEventListener('change', (event) => {
-  imgInput.src = URL.createObjectURL(event.target.files[0]);
-  console.log(imgInput)
-  humanPlayer.avatar = imgInput;
-  console.log(humanPlayer);
-}); 
 
 // event listeneres
 window.addEventListener('load', () => {
@@ -72,41 +49,46 @@ avatarField.addEventListener('change', ()=> {
   }
 });
 
-// uploadButton.addEventListener()
-
-// log in view
-// registerButton.addEventListener('click', displayRegister);
-asGuestButton.addEventListener('click', displayHome);
 loginView.addEventListener('submit', event => {
   event.preventDefault();
-  humanPlayer.name = nameField.value;
-  humanPlayer.avatar = avatarField.value;
-  displayHome();
+  currentGame.humanPlayer.name = nameField.value;
 
+  if(avatarField.value !== "customize") {
+    currentGame.humanPlayer.avatar = avatarField.value;
+  } else {
+    // to do
+    currentGame.humanPlayer.avatar = {imgSrc: imgURL};
+  }
+
+  displayHome();
 });
 
+// bug
 
-// game view
+imgInput.addEventListener('change', (event) => {
+  var img = imgInput.files[0];
+  var reader = new FileReader();
+
+  reader.addEventListener('load', (event) => {
+     imgURL = reader.result;
+  });
+
+  reader.readAsDataURL(img);
+}); 
+
+
 gameBoard.addEventListener('click', event => {
   if (event.target.classList.contains('mode') || event.target.parentElement.classList.contains('mode')) {
     displayFighters(event);
-  }
-});
-
-gameBoard.addEventListener('click', event => {
+  } 
   if (event.target.nodeName === 'IMG' && !fighters.classList.contains('hidden')) {
     displayResult(event);
     setTimeout(resetGameBoard, 2000);
   }
 });
 
+asGuestButton.addEventListener('click', displayHome);
 changeGameButton.addEventListener('click', displayHome);
-
-
-
-// register view
-// cancelRegisterButton.addEventListener('click', displayLogIn);
-// createAccountButton.addEventListener('click', displayHome);
 
 // event handlers
 function createPlayer(name, avatar, wins) {
@@ -118,134 +100,38 @@ function createPlayer(name, avatar, wins) {
   return player;
 }
 
-function createGame(player1, player2) {
+function createGame(name, avatar, wins) {
+  var humanPlayer = createPlayer(name, avatar, wins);
+  var computerPlayer = createPlayer('computer', '💻');
   var game = {
-    player1: player1,
-    player2: player2,
+    humanPlayer: humanPlayer,
+    computerPlayer: computerPlayer
   }
   return game;
 }
 
-/** local storage extension
- * saveWinsToStorage
- * retrieveWinsFromStorage
- * takeTurn
- */
-
-function uploadImage() {
-  ifShowItems([imgUploadSection], true);
-}
-
-function showResultText() {
-  // render text
-  var winner = determineWinner(humanPlayer, computerPlayer);
-  var message;
-  if (winner) {
-    message = `${winner.name} won!`; 
-  } else {
-    message = `It's a draw!`;
-  }
-  showMessage(message);
-}
-
-// log-in-page
-function displayLogIn() {
-  // to show
-  var itemsToShow= [loginView];
-  ifShowItems(itemsToShow, true);
-  // to hide
-  var itemsToHide = [gameView];
-  ifShowItems(itemsToHide, false);
-}
-
-
-/** if (localStorage) {
-  // bring to game page
-} else {
-  // bring to login page
-}
-*/ 
-
-
-//
-
-// home-page
-function displayHome() {
-  renderPlayers(players);
-
-    // to show
-    var itemsToShow= [gameView].concat(Array.from(modes));
-    ifShowItems(itemsToShow, true);
-    // to hide
-    var itemsToHide = [result, fighters, loginView];
-    ifShowItems(itemsToHide, false);
-}
-
-// chose-a-fighter-page
-function getGameMode(event) {
-  var modeChoiceBox = event.target.parentElement.firstElementChild;
-  if (event.target.innerText.indexOf('CLASSIC') !== -1|| modeChoiceBox.innerText.indexOf("CLASSIC") !== -1) {
-    currentGame.mode = easyMode;
-  } else if (event.target.innerText.indexOf('DIFFICULT') !== -1|| modeChoiceBox.innerText.indexOf("DIFFICULT") !== -1) {
-    currentGame.mode = difficultMode;
-  }
-  return currentGame.mode;
-}
-
-function displayFighters(event) {
-  getGameMode(event);
-  renderFighters(currentGame.mode);
-
-  // to show
-  var itemsToShow = [fighters, changeGameButton];
-  ifShowItems(itemsToShow, true);
-  // to hide
-  var itemsToHide = [loginView, result].concat(Array.from(modes));
-  ifShowItems(itemsToHide, false);
-  showMessage('Choose your fighter!');
-}
-
-function resetGameBoard() {
-    // to show
-    var itemsToShow= [fighters];
-    ifShowItems(itemsToShow, true);
-    // to hide
-    var itemsToHide = [result];
-    ifShowItems(itemsToHide, false);
-
-  // ifShowItem(fighters, true);
-  // ifShowItem(result, false);
-}
-
-// Result-page
 function generateRandomFighter(fighters) {
   var index = Math.floor(fighters.length * Math.random());
   return fighters[index];
 }
 
-function getUserFighter(event) {
- humanPlayer.currentChoice = event.target;
-  for (var i = 0; i < currentGame.mode.length; i++) {
-    if (event.target.alt.includes(currentGame.mode[i].fighter)) {
-     humanPlayer.currentChoice = currentGame.mode[i];
-    }
+function getGameMode(event) {
+  var choiceBox = event.target.parentElement.firstElementChild;
+  if (event.target.innerText.indexOf('CLASSIC') !== -1|| choiceBox.innerText.indexOf("CLASSIC") !== -1) {
+    currentGame.mode = easyMode; } 
+  else {
+    currentGame.mode = difficultMode;
   }
+  return currentGame.mode;
 }
 
-function displayResult(event) {
-    // to show
-    var itemsToShow= [result];
-    ifShowItems(itemsToShow, true);
-    // to hide
-    var itemsToHide = [fighters];
-    ifShowItems(itemsToHide, false);
-
-    getUserFighter(event);
-    // ifShowItem(fighters, false);
-    // ifShowItem(result, true);
-    renderResult();
-    renderPlayers(players);
-    showResultText();  
+function getUserFighter(event) {
+ currentGame.humanPlayer.currentChoice = event.target;
+  for (var i = 0; i < currentGame.mode.length; i++) {
+    if (event.target.alt.includes(currentGame.mode[i].fighter)) {
+     currentGame.humanPlayer.currentChoice = currentGame.mode[i];
+    }
+  }
 }
 
 function determineWinner(player1, player2) {
@@ -266,4 +152,81 @@ function determineWinner(player1, player2) {
   return winner;
 }
 
+function uploadImage() {
+  ifShowItems([imgUploadSection], true);
+}
 
+function showResultText() {
+  var winner = determineWinner(currentGame.humanPlayer, currentGame.computerPlayer);
+  var message;
+  if (winner) {
+    message = `${winner.name} won!`; 
+  } else {
+    message = `It's a draw!`;
+  }
+  showMessage(message);
+}
+
+function displayLogIn() {
+  var itemsToShow= [loginView];
+  ifShowItems(itemsToShow, true);
+  var itemsToHide = [gameView];
+  ifShowItems(itemsToHide, false);
+}
+
+function displayHome() {
+  renderPlayers(players);
+    var itemsToShow= [gameView].concat(Array.from(modes));
+    ifShowItems(itemsToShow, true);
+    var itemsToHide = [result, fighters, loginView];
+    ifShowItems(itemsToHide, false);
+}
+
+function resetGameBoard() {
+  var itemsToShow= [fighters];
+  ifShowItems(itemsToShow, true);
+  var itemsToHide = [result];
+  ifShowItems(itemsToHide, false);
+}
+
+function displayFighters(event) {
+  getGameMode(event);
+  renderFighters(currentGame.mode);
+  var itemsToShow = [fighters, changeGameButton];
+  ifShowItems(itemsToShow, true);
+  var itemsToHide = [loginView, result].concat(Array.from(modes));
+  ifShowItems(itemsToHide, false);
+  showMessage('Choose your fighter!');
+}
+
+function displayResult(event) {
+    var itemsToShow= [result];
+    ifShowItems(itemsToShow, true);
+    var itemsToHide = [fighters];
+    ifShowItems(itemsToHide, false);
+    getUserFighter(event);
+    renderResult();
+    showResultText();  
+    renderPlayers(players);
+}
+
+
+
+
+
+/** local storage extension
+ * saveWinsToStorage
+ * retrieveWinsFromStorage
+ * takeTurn
+ */
+
+
+/** if (localStorage) {
+  // bring to game page
+} else {
+  // bring to login page
+}
+*/ 
+
+
+//

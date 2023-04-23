@@ -24,21 +24,25 @@ function renderFighters(mode) {
 }
 
 function renderResult() {
-  computerPlayer.currentChoice = generateRandomFighter(currentGame.mode);
+  currentGame.computerPlayer.currentChoice = generateRandomFighter(currentGame.mode);
   result.innerHTML = `
-    <img src=${humanPlayer.currentChoice.img} alt=${humanPlayer.currentChoice.fighter}>
-    <img src=${computerPlayer.currentChoice.img} alt=${computerPlayer.currentChoice.fighter}>
+    <img src=${currentGame.humanPlayer.currentChoice.img} alt=${currentGame.humanPlayer.currentChoice.fighter}>
+    <img src=${currentGame.computerPlayer.currentChoice.img} alt=${currentGame.computerPlayer.currentChoice.fighter}>
   `;
 }
 
 function renderPlayers(players) {
   var leftChildren = players[0].children;
-  leftChildren[0].innerText = humanPlayer.avatar;
-  leftChildren[1].innerText = humanPlayer.name;
-  leftChildren[2].innerText = `Wins: ${humanPlayer.wins}`;
+  if (typeof currentGame.humanPlayer.avatar !== 'string') {
+    leftChildren[0].innerHTML = `<img src=${currentGame.humanPlayer.avatar.imgSrc}>`
+  } else {
+    leftChildren[0].innerText = currentGame.humanPlayer.avatar;
+  }
+  leftChildren[1].innerText = currentGame.humanPlayer.name;
+  leftChildren[2].innerText = `Wins: ${currentGame.humanPlayer.wins}`;
 
   var rightChildren = players[1].children;
-  rightChildren[0].innerText = computerPlayer.avatar;
-  rightChildren[1].innerText = computerPlayer.name;
-  rightChildren[2].innerText = `Wins: ${computerPlayer.wins}`;
+  rightChildren[0].innerText = currentGame.computerPlayer.avatar;
+  rightChildren[1].innerText = currentGame.computerPlayer.name;
+  rightChildren[2].innerText = `Wins: ${currentGame.computerPlayer.wins}`;
 }

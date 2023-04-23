@@ -6,7 +6,6 @@ html {
 }
 
 body {
-  display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -19,6 +18,15 @@ body {
   width: 70%;
   height: 100vh;
   background-color:#fc6998;
+}
+
+/* display: flex */
+body,
+.login-iew,
+.customize-avatar-section,
+.game-view,
+.fighters-view {
+  display: flex;
 }
 
 form,
@@ -47,21 +55,22 @@ h4 {
   font-weight: 200;
 }
 
-
 p {
   margin-block: 0;
 }
 
+/* button */
+/* button {
+  
+} */
 
-/* images */
-/* fighters */
+/* fighters-view */
 img {
   height: 15em;
 }
 
-/* log in page */
+/* login-view */
 .login-view {
-  display: flex;
   justify-content: center;
   background: #f74780;
   height: 30%;
@@ -73,11 +82,7 @@ select {
   text-align: center;
 }
 
-.customize-avatar-section {
-  display: flex;
-}
-
-/* player section */
+/* sidebar */
 .player {
   width: 15%;
   margin-top: 5em;
@@ -92,14 +97,16 @@ select {
   color: white;
   cursor: pointer;
   height: 40px;
-  /* border: none; */
   border-radius: 5px;
+}
+
+.player img {
+  height: 1.5em;
 }
 
 
 /* game board section */
 .game-view {
-  display: flex;
   width: 100%;
 }
 
@@ -120,7 +127,6 @@ select {
 }
 
 .fighters-view {
-  display: flex;
   align-content: center;
   flex-wrap: wrap;
   justify-content: center;
