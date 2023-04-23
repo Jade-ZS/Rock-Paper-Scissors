@@ -26,8 +26,8 @@ function renderFighters(mode) {
 function renderResult() {
   currentGame.computerPlayer.currentChoice = generateRandomFighter(currentGame.mode);
   result.innerHTML = `
-    <img src=${currentGame.humanPlayer.currentChoice.img} alt=${currentGame.humanPlayer.currentChoice.fighter}>
-    <img src=${currentGame.computerPlayer.currentChoice.img} alt=${currentGame.computerPlayer.currentChoice.fighter}>
+    <img class="human-choice" src=${currentGame.humanPlayer.currentChoice.img} alt=${currentGame.humanPlayer.currentChoice.fighter}>
+    <img class="computer-choice" src=${currentGame.computerPlayer.currentChoice.img} alt=${currentGame.computerPlayer.currentChoice.fighter}>
   `;
 }
 

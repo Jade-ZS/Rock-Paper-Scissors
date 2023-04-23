@@ -73,7 +73,7 @@ gameBoard.addEventListener('click', event => {
   } 
   if (event.target.nodeName === 'IMG' && !fighters.classList.contains('hidden')) {
     displayResult(event);
-    setTimeout(resetGameBoard, 3000);
+    setTimeout(resetGameBoard, 5000);
   }
 });
 

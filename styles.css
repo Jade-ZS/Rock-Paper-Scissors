@@ -38,6 +38,18 @@ header,
   align-items: center;
 }
 
+img {
+  height: 20vh;
+  cursor: pointer;
+}
+
+button {
+  background-color: #fc6998;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
 /* text */
 @font-face {
   font-family: "Rocher";
@@ -78,20 +90,6 @@ h4 {
 
 p {
   margin-block: 0;
-}
-
-/* button */
-button {
-  background-color: #fc6998;
-  color: white;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-/* fighters-view */
-img {
-  height: 20vh;
-  cursor: pointer;
 }
 
 /* login-view */
@@ -167,17 +165,56 @@ select {
 }
 
 .fighters-view {
+  height: 30vh;
   align-content: center;
   flex-wrap: wrap;
   justify-content: center;
-  /* width: 720px;  */
   margin-top: 10vh;
+}
+
+.fighters-view img:hover  {
+  animation: move-up 0.5s ease-in forwards;
 }
 
 .result-view {
   margin-top: 10vh;
+  /* height: 100vh;
+  width: 100vw; */
 }
 
+.result-view img:hover {
+  animation: grow-and-shrink, 4s, ease-in, forwards;
+}
+
+/* .computer-choice {
+  animation: left-to-right, 3s, ease-in, forwards;
+} */
+
+@keyframes move-up {
+  100% {
+    transform: translateY(-30%);
+  }
+}
+
+/* @keyframes grow-and-shrink {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(3);
+  }
+}
+
+@keyframes right-to-left {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+} */
 
 /* others */
 .hidden {
