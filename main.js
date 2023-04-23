@@ -26,6 +26,7 @@ var imgInput = imgUploadSection.children[0];
 var imgURL;
 var avatarField = loginForm.children[0].children[1];
 var nameField = loginForm.children[1].children[1];
+var alertBox = document.querySelector('.alert');
 
 // event listeneres
 window.addEventListener('load', () => {
@@ -69,17 +70,41 @@ imgInput.addEventListener('change', (event) => {
 
 gameBoard.addEventListener('click', event => {
   if (event.target.classList.contains('mode') || event.target.parentElement.classList.contains('mode')) {
+    getGameMode(event);
     displayFighters(event);
   } 
   if (event.target.nodeName === 'IMG' && !fighters.classList.contains('hidden')) {
     displayResult(event);
     setTimeout(resetGameBoard, 5000);
   }
+
+  if (event.target.classList.contains('change-mode-button')) {
+    toggleMode(currentGame.mode);
+    alertModeChange();
+    // alert('Your game mode will changed!');
+  }
 });
 
-asGuestButton.addEventListener('click', displayHome);
-changeModeButton.addEventListener('click', displayHome);
 
+// changeModeButton.addEventListener('click', () => {
+//   if (currentGame.mode === easyMode) {
+//     currentGame.mode = difficultMode;
+//   } else {
+//     currentGame.mode = easyMode;
+//   }
+//   displayFighters();
+// });
+
+asGuestButton.addEventListener('click', displayHome);
+
+function toggleMode() {
+  if (currentGame.mode === easyMode) {
+    currentGame.mode = difficultMode;
+  } else {
+    currentGame.mode = easyMode;
+  }
+  displayFighters();
+}
 // event handlers
 function createPlayer(name, avatar, wins) {
   var player = {
@@ -180,9 +205,8 @@ function resetGameBoard() {
   ifShowItems(itemsToHide, false);
 }
 
-function displayFighters(event) {
+function displayFighters() {
   showMessage('Choose your fighter!');
-  getGameMode(event);
   renderFighters(currentGame.mode);
   var itemsToShow = [fighters, changeModeButton];
   ifShowItems(itemsToShow, true);

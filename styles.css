@@ -2,7 +2,6 @@
 html {
   color: white;
   font-family: "Noto Sans", serif, Times; 
-  text-shadow: 2px 2px red; 
 }
 
 body {
@@ -24,7 +23,8 @@ body,
 .login-iew,
 .customize-avatar-section,
 .game-view,
-.fighters-view {
+.fighters-view,
+.game-buttons {
   display: flex;
 }
 
@@ -71,11 +71,13 @@ h1 {
   font-size: 10vh;
   font-weight: 900;
   margin-block-end: 0;
+  /* text-shadow: 2px 2px red;  */
 }
 
 h2 {
   font-size: 4vh;
   font-weight: 400;
+  text-shadow: 2px 2px red; 
 }
 
 h3 {
@@ -120,6 +122,7 @@ select {
 
 .input {
   font-size: 3vh;
+  text-shadow: 2px 2px red; 
 }
 
 /* sidebar */
@@ -161,7 +164,6 @@ select {
 .mode:hover {
   background-color: white;
   color: #f74780;
-  text-shadow: 0 0 white;
 }
 
 .fighters-view {
@@ -180,6 +182,10 @@ select {
   margin-top: 10vh;
   /* height: 100vh;
   width: 100vw; */
+}
+
+.swal2-title {
+  text-shadow: none;
 }
 
 .result-view img:hover {

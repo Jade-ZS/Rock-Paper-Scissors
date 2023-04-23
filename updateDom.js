@@ -46,3 +46,10 @@ function renderPlayers(players) {
   rightChildren[1].innerText = currentGame.computerPlayer.name;
   rightChildren[2].innerText = `Wins: ${currentGame.computerPlayer.wins}`;
 }
+
+function alertModeChange() {
+  alertBox.innerHTML = `
+    <span>Your game mode will be changed!</span>
+    <button>cancel</button>
+    <button>OK</button>`
+}
