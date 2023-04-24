@@ -61,6 +61,7 @@ loginView.addEventListener('submit', event => {
     currentGame.humanPlayer.avatar = {imgSrc: imgURL};
   }
 
+  saveUserToStorage();
   displayHome();
 });
 
@@ -86,6 +87,7 @@ gameBoard.addEventListener('click', event => {
 
   if (event.target.nodeName === 'IMG' && !fighters.classList.contains('hidden')) {
     displayResult(event);
+    saveWinsToStorage();
     setTimeout(resetGameBoard, 5000);
   }
   
@@ -109,7 +111,10 @@ gameBoard.addEventListener('click', event => {
 
 });
 
-endGameButton.addEventListener('click', displayLogIn);
+endGameButton.addEventListener('click', () => {
+  localStorage.clear();
+  displayLogIn();
+});
 
 
 
@@ -122,7 +127,10 @@ endGameButton.addEventListener('click', displayLogIn);
 //   displayFighters();
 // });
 
-asGuestButton.addEventListener('click', displayHome);
+asGuestButton.addEventListener('click', () => {
+  saveUserToStorage();
+  displayHome();
+});
 
 function toggleMode() {
   if (currentGame.mode === easyMode) {
@@ -130,6 +138,7 @@ function toggleMode() {
   } else {
     currentGame.mode = easyMode;
   }
+  saveModeToStorage();
   displayFighters();
 }
 // event handlers
@@ -164,6 +173,7 @@ function getGameMode(event) {
   else {
     currentGame.mode = difficultMode;
   }
+  saveModeToStorage();
   return currentGame.mode;
 }
 
@@ -191,6 +201,7 @@ function determineWinner(player1, player2) {
     winner = player2; 
   }
   winner.wins+=1;
+  saveWinsToStorage();
   return winner;
 }
 
@@ -272,3 +283,28 @@ function displayResult(event) {
 
 
 //
+
+
+function saveWinsToStorage() {
+  if (localStorage.getItem('human wins')) {
+    localStorage.removeItem('human wins');
+  }
+  localStorage.setItem('human wins', currentGame.humanPlayer.wins);
+
+  if (localStorage.getItem('computer wins')) {
+    localStorage.removeItem('computer wins');
+  }
+  localStorage.setItem('computer wins', currentGame.computerPlayer.wins);
+}
+
+function saveModeToStorage() {
+  if (localStorage.getItem('mode')) {
+    localStorage.removeItem('mode');
+  }
+  localStorage.setItem('mode', JSON.stringify(currentGame.mode));
+}
+
+function saveUserToStorage() {
+  localStorage.setItem('name', currentGame.humanPlayer.name);
+  localStorage.setItem('avatar', currentGame.humanPlayer.avatar);
+}
