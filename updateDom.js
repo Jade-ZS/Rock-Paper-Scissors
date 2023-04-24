@@ -14,6 +14,7 @@ function showMessage(message) {
 
 
 function renderFighters(mode) {
+  console.log('render fighters')
   fighters.innerHTML = '';
   for (var i = 0; i < 5; i++) {
     if (!mode[i]) {
@@ -24,6 +25,7 @@ function renderFighters(mode) {
 }
 
 function renderResult() {
+  console.log('render result')
   currentGame.computerPlayer.currentChoice = generateRandomFighter(currentGame.mode);
   result.innerHTML = `
     <img class="human-choice" src=${currentGame.humanPlayer.currentChoice.img} alt=${currentGame.humanPlayer.currentChoice.fighter}>
@@ -32,19 +34,23 @@ function renderResult() {
 }
 
 function renderPlayers(players) {
+  console.log('render players')
   var leftChildren = players[0].children;
   if (typeof currentGame.humanPlayer.avatar !== 'string') {
+    leftChildren[0].innerHTML = `<img src=${currentGame.humanPlayer.avatar.imgSrc}>`
     leftChildren[0].innerHTML = `<img src=${localStorage.getItem('avatar')}>`
   } else {
     leftChildren[0].innerText = localStorage.getItem('avatar');
   }
   leftChildren[1].innerText = localStorage.getItem('name');
-  leftChildren[2].innerText = `Wins: ${localStorage.getItem('human wins')}`;
+  console.log('localStorage.humanWins', localStorage.getItem('humanWins'))
+  leftChildren[2].innerText = `Wins: ${localStorage.getItem('humanWins')}`;
+  console.log('localStorage', localStorage)
 
   var rightChildren = players[1].children;
   rightChildren[0].innerText = currentGame.computerPlayer.avatar;
   rightChildren[1].innerText = currentGame.computerPlayer.name;
-  rightChildren[2].innerText = `Wins: ${localStorage.getItem('computer wins')}`;
+  rightChildren[2].innerText = `Wins: ${localStorage.getItem('computerWins')}`;
 }
 
 function showAlertMessage(message) {

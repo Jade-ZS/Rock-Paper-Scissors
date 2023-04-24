@@ -1,5 +1,8 @@
 // variables
-var currentGame = createGame();
+var currentGame;
+
+console.log('createGame')
+
 var easyMode = [
   {fighter:'rock', img:'./assets/images/happy-rocks.png'},
   {fighter:'paper', img:'./assets/images/happy-paper.png'},
@@ -36,14 +39,23 @@ var returnHomeButton = document.querySelector('.return-home-button');
 
 // event listeneres
 window.addEventListener('load', () => {
-  eval(localStorage.getItem('currentPage'))();
-  // if (localStorage.length) {
-  //   displayHome();
-  // } else {
-  //   displayLogIn();
-  // }
-  // var test = JSON.parse(localStorage.getItem('currentPage'));
-  // test();
+  console.log('load')
+
+  if (localStorage.length > 3) {
+    var humanAvatar = localStorage.getItem('avatar');
+    var humanName = localStorage.getItem('name');
+    var humanWins = parseInt(localStorage.getItem('humanWins'));
+    var computerWins = parseInt(localStorage.getItem('computerWins'));
+    currentGame = createGame(humanName, humanAvatar, humanWins, computerWins);
+    displayHome();
+  } else {
+    displayLogIn();
+    currentGame = createGame();
+    localStorage.setItem('humanWins', '0');
+    localStorage.setItem('computerWins', '0');
+    localStorage.setItem('name', currentGame.humanPlayer.name);
+    localStorage.setItem('avatar', currentGame.humanPlayer.avatar);
+  }
 });
 
 avatarField.addEventListener('change', ()=> {
@@ -62,16 +74,17 @@ loginView.addEventListener('submit', event => {
     currentGame.humanPlayer.avatar = avatarField.value;
   } else {
     currentGame.humanPlayer.avatar = {imgSrc: imgURL};
+    localStorage.setItem('avatar', imgURL);
   }
-
+  saveWinsToStorage();
   saveUserToStorage();
   displayHome();
 });
 
-imgInput.addEventListener('change', (event) => {
+imgInput.addEventListener('change', () => {
   var img = imgInput.files[0];
   var reader = new FileReader();
-  reader.addEventListener('load', (event) => {
+  reader.addEventListener('load', () => {
      imgURL = reader.result;
   });
   reader.readAsDataURL(img);
@@ -80,8 +93,9 @@ imgInput.addEventListener('change', (event) => {
 
 gameBoard.addEventListener('click', event => {
   if (event.target.classList.contains('mode') || event.target.parentElement.classList.contains('mode')) {
+    console.log('mode')
     getGameMode(event);
-    displayFighters(event);
+    displayFighters();
   } 
 
   // if (event.target.classList.contains('end-game-button')) {
@@ -89,25 +103,29 @@ gameBoard.addEventListener('click', event => {
   // }
 
   if (event.target.nodeName === 'IMG' && !fighters.classList.contains('hidden')) {
+    console.log('click on a fighter')
     displayResult(event);
     saveWinsToStorage();
-    setTimeout(resetGameBoard, 5000);
+    setTimeout(resetGameBoard, 1000);
   }
   
   if (event.target.classList.contains('return-home-button')) {
+    console.log('return home')
     displayHome();
   }
 
   if (event.target.classList.contains('change-mode-button')) {
+    console.log('change mode')
     showAlertMessage(`Your game mode will be changed!`);
-    // alert('Your game mode will changed!');
   }
 
   if (event.target.classList.contains('cancel-button')) {
+    console.log('cancle change')
     ifShowItems([alertBox], false);
   }
 
   if (event.target.classList.contains('ok-button')) {
+    console.log('confirm change')
     toggleMode(currentGame.mode);
     ifShowItems([alertBox], false);
   }
@@ -115,6 +133,7 @@ gameBoard.addEventListener('click', event => {
 });
 
 endGameButton.addEventListener('click', () => {
+  console.log('end game')
   localStorage.clear();
   displayLogIn();
 });
@@ -131,11 +150,13 @@ endGameButton.addEventListener('click', () => {
 // });
 
 asGuestButton.addEventListener('click', () => {
-  saveUserToStorage();
+  console.log('as guest')
+  // saveUserToStorage();
   displayHome();
 });
 
 function toggleMode() {
+  console.log('toggleMode')
   if (currentGame.mode === easyMode) {
     currentGame.mode = difficultMode;
   } else {
@@ -154,22 +175,30 @@ function createPlayer(name, avatar, wins) {
   return player;
 }
 
-function createGame(name, avatar, wins) {
-  var humanPlayer = createPlayer(name, avatar, wins);
-  var computerPlayer = createPlayer('computer', '💻');
+function createGame(name, avatar, humanWins, computerWins) {
+  var humanPlayer = createPlayer(name, avatar, humanWins);
+  var computerPlayer = createPlayer('computer', '💻', computerWins);
   var game = {
     humanPlayer: humanPlayer,
     computerPlayer: computerPlayer
   }
+  // console.log('human: ', currentGame.humanPlayer.wins)
+  // console.log('computer: ', currentGame.computerPlayer.wins)
+  // console.log('--------')
   return game;
 }
 
 function generateRandomFighter(fighters) {
+  console.log('random fighter')
   var index = Math.floor(fighters.length * Math.random());
   return fighters[index];
+  console.log('human: ', currentGame.humanPlayer.wins)
+  console.log('computer: ', currentGame.computerPlayer.wins)
+  console.log('--------')
 }
 
 function getGameMode(event) {
+  console.log('get game mode')
   var choiceBox = event.target.parentElement.firstElementChild;
   if (event.target.innerText.indexOf('CLASSIC') !== -1|| choiceBox.innerText.indexOf("CLASSIC") !== -1) {
     currentGame.mode = easyMode; } 
@@ -177,10 +206,14 @@ function getGameMode(event) {
     currentGame.mode = difficultMode;
   }
   saveModeToStorage();
+  console.log('human: ', currentGame.humanPlayer.wins)
+  console.log('computer: ', currentGame.computerPlayer.wins)
+  console.log('--------')
   return currentGame.mode;
 }
 
 function getUserFighter(event) {
+  console.log('get user fighter')
   if (!event) {
     return;
   }
@@ -190,9 +223,13 @@ function getUserFighter(event) {
      currentGame.humanPlayer.currentChoice = currentGame.mode[i];
     }
   }
+  console.log('human: ', currentGame.humanPlayer.wins)
+  console.log('computer: ', currentGame.computerPlayer.wins)
+  console.log('--------')
 }
 
 function determineWinner(player1, player2) {
+  console.log('determine winner')
   var winner;
   var condition1 = player1.currentChoice.fighter === 'rock' && player2.currentChoice.fighter === ('scissors'||'lizard');
   var condition2 = player1.currentChoice.fighter === 'paper' && player2.currentChoice.fighter === ('rock'||'alien');
@@ -208,6 +245,9 @@ function determineWinner(player1, player2) {
   }
   winner.wins+=1;
   saveWinsToStorage();
+  console.log('human: ', currentGame.humanPlayer.wins)
+  console.log('computer: ', currentGame.computerPlayer.wins)
+  console.log('--------')
   return winner;
 }
 
@@ -216,6 +256,7 @@ function uploadImage() {
 }
 
 function showResultText() {
+  console.log('show result text')
   var winner = determineWinner(currentGame.humanPlayer, currentGame.computerPlayer);
   var message;
   if (winner) {
@@ -227,7 +268,7 @@ function showResultText() {
 }
 
 function displayLogIn() {
-  savePageToStorage('displayLogIn')
+  console.log('display log in')
   var itemsToShow= [loginView];
   ifShowItems(itemsToShow, true);
   var itemsToHide = [gameView];
@@ -235,7 +276,7 @@ function displayLogIn() {
 }
 
 function displayHome() {
-  savePageToStorage('displayHome');
+  console.log('display home')
   renderPlayers(players);
   var itemsToShow= [gameView].concat(Array.from(modes));
   ifShowItems(itemsToShow, true);
@@ -244,15 +285,16 @@ function displayHome() {
 }
 
 function resetGameBoard() {
-  showMessage('Choose your fighter!');
+  console.log('reset game board')
   var itemsToShow= [fighters];
   ifShowItems(itemsToShow, true);
   var itemsToHide = [result];
   ifShowItems(itemsToHide, false);
+  showMessage('Choose your fighters!');
 }
 
 function displayFighters() {
-  savePageToStorage('displayFighters');
+  console.log('display fighters')
   showMessage('Choose your fighter!');
   renderFighters(currentGame.mode);
   var itemsToShow = [fighters, changeModeButton, returnHomeButton];
@@ -262,7 +304,7 @@ function displayFighters() {
 }
 
 function displayResult(event) {
-  savePageToStorage('displayResult');
+  console.log('display result')
   var itemsToShow= [result];
   ifShowItems(itemsToShow, true);
   var itemsToHide = [fighters];
@@ -296,29 +338,15 @@ function displayResult(event) {
 
 
 function saveWinsToStorage() {
-  if (localStorage.getItem('human wins')) {
-    localStorage.removeItem('human wins');
-  }
-  localStorage.setItem('human wins', currentGame.humanPlayer.wins);
-
-  if (localStorage.getItem('computer wins')) {
-    localStorage.removeItem('computer wins');
-  }
-  localStorage.setItem('computer wins', currentGame.computerPlayer.wins);
+  localStorage.setItem('humanWins', currentGame.humanPlayer.wins);
+  localStorage.setItem('computerWins', currentGame.computerPlayer.wins);
 }
 
 function saveModeToStorage() {
-  if (localStorage.getItem('mode')) {
-    localStorage.removeItem('mode');
-  }
   localStorage.setItem('mode', JSON.stringify(currentGame.mode));
 }
 
 function saveUserToStorage() {
   localStorage.setItem('name', currentGame.humanPlayer.name);
   localStorage.setItem('avatar', currentGame.humanPlayer.avatar);
-}
-
-function savePageToStorage(page) {
-  localStorage.setItem('currentPage', page);
 }
