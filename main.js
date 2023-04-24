@@ -36,11 +36,14 @@ var returnHomeButton = document.querySelector('.return-home-button');
 
 // event listeneres
 window.addEventListener('load', () => {
-  if (localStorage.length) {
-    displayHome();
-  } else {
-    displayLogIn();
-  }
+  eval(localStorage.getItem('currentPage'))();
+  // if (localStorage.length) {
+  //   displayHome();
+  // } else {
+  //   displayLogIn();
+  // }
+  // var test = JSON.parse(localStorage.getItem('currentPage'));
+  // test();
 });
 
 avatarField.addEventListener('change', ()=> {
@@ -178,6 +181,9 @@ function getGameMode(event) {
 }
 
 function getUserFighter(event) {
+  if (!event) {
+    return;
+  }
  currentGame.humanPlayer.currentChoice = event.target;
   for (var i = 0; i < currentGame.mode.length; i++) {
     if (event.target.alt.includes(currentGame.mode[i].fighter)) {
@@ -221,6 +227,7 @@ function showResultText() {
 }
 
 function displayLogIn() {
+  savePageToStorage('displayLogIn')
   var itemsToShow= [loginView];
   ifShowItems(itemsToShow, true);
   var itemsToHide = [gameView];
@@ -228,6 +235,7 @@ function displayLogIn() {
 }
 
 function displayHome() {
+  savePageToStorage('displayHome');
   renderPlayers(players);
   var itemsToShow= [gameView].concat(Array.from(modes));
   ifShowItems(itemsToShow, true);
@@ -244,6 +252,7 @@ function resetGameBoard() {
 }
 
 function displayFighters() {
+  savePageToStorage('displayFighters');
   showMessage('Choose your fighter!');
   renderFighters(currentGame.mode);
   var itemsToShow = [fighters, changeModeButton, returnHomeButton];
@@ -253,14 +262,15 @@ function displayFighters() {
 }
 
 function displayResult(event) {
-    var itemsToShow= [result];
-    ifShowItems(itemsToShow, true);
-    var itemsToHide = [fighters];
-    ifShowItems(itemsToHide, false);
-    getUserFighter(event);
-    renderResult();
-    showResultText();  
-    renderPlayers(players);
+  savePageToStorage('displayResult');
+  var itemsToShow= [result];
+  ifShowItems(itemsToShow, true);
+  var itemsToHide = [fighters];
+  ifShowItems(itemsToHide, false);
+  getUserFighter(event);
+  renderResult();
+  showResultText();  
+  renderPlayers(players);
 }
 
 
@@ -307,4 +317,8 @@ function saveModeToStorage() {
 function saveUserToStorage() {
   localStorage.setItem('name', currentGame.humanPlayer.name);
   localStorage.setItem('avatar', currentGame.humanPlayer.avatar);
+}
+
+function savePageToStorage(page) {
+  localStorage.setItem('currentPage', page);
 }
