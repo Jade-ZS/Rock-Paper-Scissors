@@ -167,6 +167,40 @@ select {
 }
 
 .fighters-view {
+  position: relative;
+}
+
+.alert-box {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  border-radius: 10px;
+  background-color: #3CD184;
+  position: absolute;
+  z-index: 1;
+  margin-top: 20%;
+  height: 20vh;
+  width: 30vw;
+}
+
+.alert-message {
+  margin-top: 10%;
+}
+
+.alert-buttons {
+  /* margin-top: 10%; */
+  display: flex;
+  justify-content: center;
+  gap: 60%;
+}
+
+
+/* .ok-button {
+  margin-left: 80%;
+} */
+
+.fighters-view {
   height: 30vh;
   align-content: center;
   flex-wrap: wrap;
@@ -192,35 +226,11 @@ select {
   animation: grow-and-shrink, 4s, ease-in, forwards;
 }
 
-/* .computer-choice {
-  animation: left-to-right, 3s, ease-in, forwards;
-} */
-
 @keyframes move-up {
   100% {
     transform: translateY(-30%);
   }
 }
-
-/* @keyframes grow-and-shrink {
-  0% {
-    transform: scale(1);
-  }
-
-  100% {
-    transform: scale(3);
-  }
-}
-
-@keyframes right-to-left {
-  0% {
-    transform: translateX(100%);
-  }
-
-  100% {
-    transform: translateX(-100%);
-  }
-} */
 
 /* others */
 .hidden {

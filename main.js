@@ -26,7 +26,13 @@ var imgInput = imgUploadSection.children[0];
 var imgURL;
 var avatarField = loginForm.children[0].children[1];
 var nameField = loginForm.children[1].children[1];
-var alertBox = document.querySelector('.alert');
+var alertBox = document.querySelector('.alert-box');
+var alertMessage = alertBox.firstElementChild;
+var endGameButton = document.querySelector('.end-game-button');
+var returnHomeButton = document.querySelector('.return-home-button');
+
+// var cancelButton = document.querySelector('.cancel-button');
+// var okButton = document.querySelector('.ok-button');
 
 // event listeneres
 window.addEventListener('load', () => {
@@ -73,17 +79,38 @@ gameBoard.addEventListener('click', event => {
     getGameMode(event);
     displayFighters(event);
   } 
+
+  // if (event.target.classList.contains('end-game-button')) {
+  //   displayLogIn();
+  // }
+
   if (event.target.nodeName === 'IMG' && !fighters.classList.contains('hidden')) {
     displayResult(event);
     setTimeout(resetGameBoard, 5000);
   }
+  
+  if (event.target.classList.contains('return-home-button')) {
+    displayHome();
+  }
 
   if (event.target.classList.contains('change-mode-button')) {
-    toggleMode(currentGame.mode);
-    alertModeChange();
+    showAlertMessage(`Your game mode will be changed!`);
     // alert('Your game mode will changed!');
   }
+
+  if (event.target.classList.contains('cancel-button')) {
+    ifShowItems([alertBox], false);
+  }
+
+  if (event.target.classList.contains('ok-button')) {
+    toggleMode(currentGame.mode);
+    ifShowItems([alertBox], false);
+  }
+
 });
+
+endGameButton.addEventListener('click', displayLogIn);
+
 
 
 // changeModeButton.addEventListener('click', () => {
@@ -193,7 +220,7 @@ function displayHome() {
   renderPlayers(players);
   var itemsToShow= [gameView].concat(Array.from(modes));
   ifShowItems(itemsToShow, true);
-  var itemsToHide = [result, fighters, loginView, changeModeButton];
+  var itemsToHide = [result, fighters, loginView, changeModeButton, returnHomeButton];
   ifShowItems(itemsToHide, false);
 }
 
@@ -208,7 +235,7 @@ function resetGameBoard() {
 function displayFighters() {
   showMessage('Choose your fighter!');
   renderFighters(currentGame.mode);
-  var itemsToShow = [fighters, changeModeButton];
+  var itemsToShow = [fighters, changeModeButton, returnHomeButton];
   ifShowItems(itemsToShow, true);
   var itemsToHide = [loginView, result].concat(Array.from(modes));
   ifShowItems(itemsToHide, false);
