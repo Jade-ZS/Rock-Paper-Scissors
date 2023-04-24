@@ -72,12 +72,16 @@ loginView.addEventListener('submit', event => {
 
   if(avatarField.value !== "customize") {
     currentGame.humanPlayer.avatar = avatarField.value;
+    localStorage.setItem('avatar', avatarField.value);
   } else {
-    currentGame.humanPlayer.avatar = {imgSrc: imgURL};
-    localStorage.setItem('avatar', imgURL);
+    currentGame.humanPlayer.avatar = imgURL;
+    console.log('url', imgURL)
+    localStorage.setItem('avatar', currentGame.humanPlayer.avatar);
   }
-  saveWinsToStorage();
-  saveUserToStorage();
+
+  
+  // saveWinsToStorage();
+  // saveUserToStorage();
   displayHome();
 });
 

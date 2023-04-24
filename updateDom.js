@@ -36,8 +36,11 @@ function renderResult() {
 function renderPlayers(players) {
   console.log('render players')
   var leftChildren = players[0].children;
-  if (typeof currentGame.humanPlayer.avatar !== 'string') {
-    leftChildren[0].innerHTML = `<img src=${currentGame.humanPlayer.avatar.imgSrc}>`
+  console.log('hererere')
+  if (currentGame.humanPlayer.avatar.includes('data')) {
+    console.log(currentGame.humanPlayer.avatar.imgSrc)
+    // leftChildren[0].innerHTML = `<img src=${currentGame.humanPlayer.avatar.imgSrc}>`
+    console.log('render img')
     leftChildren[0].innerHTML = `<img src=${localStorage.getItem('avatar')}>`
   } else {
     leftChildren[0].innerText = localStorage.getItem('avatar');
