@@ -1,8 +1,6 @@
 // variables
 var currentGame;
 
-console.log('createGame')
-
 var easyMode = [
   {fighter:'rock', img:'./assets/images/happy-rocks.png'},
   {fighter:'paper', img:'./assets/images/happy-paper.png'},
@@ -34,13 +32,8 @@ var alertMessage = alertBox.firstElementChild;
 var endGameButton = document.querySelector('.end-game-button');
 var returnHomeButton = document.querySelector('.return-home-button');
 
-// var cancelButton = document.querySelector('.cancel-button');
-// var okButton = document.querySelector('.ok-button');
-
 // event listeneres
 window.addEventListener('load', () => {
-  console.log('load')
-
   if (localStorage.length > 3) {
     var humanAvatar = localStorage.getItem('avatar');
     var humanName = localStorage.getItem('name');
@@ -51,10 +44,6 @@ window.addEventListener('load', () => {
   } else {
     displayLogIn();
     currentGame = createGame();
-    localStorage.setItem('humanWins', '0');
-    localStorage.setItem('computerWins', '0');
-    localStorage.setItem('name', currentGame.humanPlayer.name);
-    localStorage.setItem('avatar', currentGame.humanPlayer.avatar);
   }
 });
 
@@ -73,15 +62,16 @@ loginView.addEventListener('submit', event => {
   if(avatarField.value !== "customize") {
     currentGame.humanPlayer.avatar = avatarField.value;
     localStorage.setItem('avatar', avatarField.value);
+    localStorage.setItem('humanWins', '0');
+    localStorage.setItem('computerWins', '0');
+    localStorage.setItem('name', currentGame.humanPlayer.name);
   } else {
     currentGame.humanPlayer.avatar = imgURL;
-    console.log('url', imgURL)
     localStorage.setItem('avatar', currentGame.humanPlayer.avatar);
+    localStorage.setItem('humanWins', '0');
+    localStorage.setItem('computerWins', '0');
+    localStorage.setItem('name', currentGame.humanPlayer.name);
   }
-
-  
-  // saveWinsToStorage();
-  // saveUserToStorage();
   displayHome();
 });
 
@@ -102,14 +92,9 @@ gameBoard.addEventListener('click', event => {
     displayFighters();
   } 
 
-  // if (event.target.classList.contains('end-game-button')) {
-  //   displayLogIn();
-  // }
-
   if (event.target.nodeName === 'IMG' && !fighters.classList.contains('hidden')) {
     console.log('click on a fighter')
     displayResult(event);
-    saveWinsToStorage();
     setTimeout(resetGameBoard, 1000);
   }
   
@@ -142,20 +127,12 @@ endGameButton.addEventListener('click', () => {
   displayLogIn();
 });
 
-
-
-// changeModeButton.addEventListener('click', () => {
-//   if (currentGame.mode === easyMode) {
-//     currentGame.mode = difficultMode;
-//   } else {
-//     currentGame.mode = easyMode;
-//   }
-//   displayFighters();
-// });
-
 asGuestButton.addEventListener('click', () => {
   console.log('as guest')
-  // saveUserToStorage();
+  localStorage.setItem('avatar', currentGame.humanPlayer.avatar);
+  localStorage.setItem('humanWins', '0');
+  localStorage.setItem('computerWins', '0');
+  localStorage.setItem('name', currentGame.humanPlayer.name);
   displayHome();
 });
 
@@ -166,7 +143,6 @@ function toggleMode() {
   } else {
     currentGame.mode = easyMode;
   }
-  saveModeToStorage();
   displayFighters();
 }
 // event handlers
@@ -186,9 +162,6 @@ function createGame(name, avatar, humanWins, computerWins) {
     humanPlayer: humanPlayer,
     computerPlayer: computerPlayer
   }
-  // console.log('human: ', currentGame.humanPlayer.wins)
-  // console.log('computer: ', currentGame.computerPlayer.wins)
-  // console.log('--------')
   return game;
 }
 
@@ -196,40 +169,28 @@ function generateRandomFighter(fighters) {
   console.log('random fighter')
   var index = Math.floor(fighters.length * Math.random());
   return fighters[index];
-  console.log('human: ', currentGame.humanPlayer.wins)
-  console.log('computer: ', currentGame.computerPlayer.wins)
-  console.log('--------')
 }
 
 function getGameMode(event) {
   console.log('get game mode')
   var choiceBox = event.target.parentElement.firstElementChild;
   if (event.target.innerText.indexOf('CLASSIC') !== -1|| choiceBox.innerText.indexOf("CLASSIC") !== -1) {
-    currentGame.mode = easyMode; } 
-  else {
+    currentGame.mode = easyMode; 
+    localStorage.setItem('mode', easyMode);
+  } else {
     currentGame.mode = difficultMode;
+    localStorage.setItem('mode', difficultMode);
   }
-  saveModeToStorage();
-  console.log('human: ', currentGame.humanPlayer.wins)
-  console.log('computer: ', currentGame.computerPlayer.wins)
-  console.log('--------')
   return currentGame.mode;
 }
 
 function getUserFighter(event) {
-  console.log('get user fighter')
-  if (!event) {
-    return;
-  }
- currentGame.humanPlayer.currentChoice = event.target;
-  for (var i = 0; i < currentGame.mode.length; i++) {
-    if (event.target.alt.includes(currentGame.mode[i].fighter)) {
-     currentGame.humanPlayer.currentChoice = currentGame.mode[i];
+  currentGame.humanPlayer.currentChoice = event.target;
+    for (var i = 0; i < currentGame.mode.length; i++) {
+      if (event.target.alt.includes(currentGame.mode[i].fighter)) {
+      currentGame.humanPlayer.currentChoice = currentGame.mode[i];
+      }
     }
-  }
-  console.log('human: ', currentGame.humanPlayer.wins)
-  console.log('computer: ', currentGame.computerPlayer.wins)
-  console.log('--------')
 }
 
 function determineWinner(player1, player2) {
@@ -248,7 +209,6 @@ function determineWinner(player1, player2) {
     winner = player2; 
   }
   winner.wins+=1;
-  saveWinsToStorage();
   console.log('human: ', currentGame.humanPlayer.wins)
   console.log('computer: ', currentGame.computerPlayer.wins)
   console.log('--------')
@@ -262,6 +222,12 @@ function uploadImage() {
 function showResultText() {
   console.log('show result text')
   var winner = determineWinner(currentGame.humanPlayer, currentGame.computerPlayer);
+  if (winner.name === localStorage.getItem('name')) {
+    localStorage.setItem('humanWins', winner.wins)
+  } else {
+    localStorage.setItem('computerWins', winner.wins);
+  }
+
   var message;
   if (winner) {
     message = `${winner.name} won!`; 
@@ -320,37 +286,3 @@ function displayResult(event) {
 }
 
 
-
-
-
-/** local storage extension
- * saveWinsToStorage
- * retrieveWinsFromStorage
- * takeTurn
- */
-
-
-/** if (localStorage) {
-  // bring to game page
-} else {
-  // bring to login page
-}
-*/ 
-
-
-//
-
-
-function saveWinsToStorage() {
-  localStorage.setItem('humanWins', currentGame.humanPlayer.wins);
-  localStorage.setItem('computerWins', currentGame.computerPlayer.wins);
-}
-
-function saveModeToStorage() {
-  localStorage.setItem('mode', JSON.stringify(currentGame.mode));
-}
-
-function saveUserToStorage() {
-  localStorage.setItem('name', currentGame.humanPlayer.name);
-  localStorage.setItem('avatar', currentGame.humanPlayer.avatar);
-}
