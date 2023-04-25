@@ -1,6 +1,5 @@
 // variables
 var currentGame;
-
 var easyMode = [
   {fighter:'rock', img:'./assets/images/happy-rocks.png'},
   {fighter:'paper', img:'./assets/images/happy-paper.png'},
@@ -10,27 +9,28 @@ var difficultMode = easyMode.concat(
   {fighter:'lizard', img:'./assets/images/lizard.png'},
   {fighter:'alien', img:'./assets/images/happy-alien.png'}
 );
+
 var loginView = document.querySelector('.login-view');
 var loginForm = document.querySelector('.login-form');
-var registerView = document.querySelector('.register-view');
-var gameView = document.querySelector('.game-view');
-var result = document.querySelector('.result-view');
-var fighters = document.querySelector('.fighters-view');
-var gameBoard = document.querySelector('.gameboard');
-var players = document.getElementsByClassName('player');
-var modes = gameBoard.getElementsByClassName('mode');
-var subline = document.querySelector('header>h2');
-var asGuestButton = document.querySelector('.as-guest-button');
-var changeModeButton = document.querySelector('.change-mode-button');
+var avatarField = loginForm.children[0].children[1];
+var nameField = loginForm.children[1].children[1];
 var imgUploadSection = document.querySelector('.customize-avatar-section');
 var imgInput = imgUploadSection.children[0];
 var imgURL;
-var avatarField = loginForm.children[0].children[1];
-var nameField = loginForm.children[1].children[1];
+var gameView = document.querySelector('.game-view');
+var subline = document.querySelector('header>h2');
+var gameBoard = document.querySelector('.gameboard');
+var modes = gameBoard.getElementsByClassName('mode');
+var fighters = document.querySelector('.fighters-view');
+var result = document.querySelector('.result-view');
+var players = document.getElementsByClassName('player');
 var alertBox = document.querySelector('.alert-box');
 var alertMessage = alertBox.firstElementChild;
-var endGameButton = document.querySelector('.end-game-button');
+
+var asGuestButton = document.querySelector('.as-guest-button');
+var changeModeButton = document.querySelector('.change-mode-button');
 var returnHomeButton = document.querySelector('.return-home-button');
+var endGameButton = document.querySelector('.end-game-button');
 
 // event listeneres
 window.addEventListener('load', () => {
