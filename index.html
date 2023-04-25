@@ -54,13 +54,6 @@
         <header>
           <h1>Rock, Paper, Scissors</h1>
           <h2>Choose your game!</h2>
-          <fieldset class="alert-box hidden">
-            <h4 class="alert-message"><!-- alert will appear here --></h4>
-            <div class="alert-buttons">
-              <button type="button" class="cancel-button">Cancel</button>
-              <button type="button" class="ok-button">OK</burron>
-            </div>
-          </fieldset>
         </header>
         <article class="mode">
           <h3>CLASSIC</h3>
@@ -76,15 +69,17 @@
           <p>lizard &gt; paper & alien</p>
           <p>alien &gt; scissors & rock</p>
         </article>
-        <section class="view fighters-view"></section>
-        <!-- fighter choices will appear here -->
-        <section class="view result-view"></section>
-        <!-- game result will appear here -->
-        <!-- <div class="game-buttons"> -->
+        <section class="view fighters-view"><!-- fighter choices will appear here --></section>
+        <fieldset class="alert-box hidden">
+          <h4 class="alert-message"><!-- alert will appear here --></h4>
+          <div class="alert-buttons">
+            <button type="button" class="cancel-button">Cancel</button>
+            <button type="button" class="ok-button">OK</burron>
+          </div>
+        </fieldset>
+        <section class="view result-view"><!-- game result will appear here --></section>
         <button type="button" class="change-mode-button hidden">Change Mode</button>
-          <!-- <button type="button" class="end-game-button">End Game</button> -->
         <button type="button" class="return-home-button">Return Home</button>
-        <!-- </div> -->
       </section>
       <aside class="player">
         <h1>💻</h1>
