@@ -203,21 +203,22 @@ select {
   margin-top: 10%;
 }
 
+.fighters-view,
+.result-view {
+  margin-top: 10vh;
+  height: 30vh;
+
+}
+
 .fighters-view {
   position: relative;
-  height: 30vh;
   align-content: center;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 10vh;
 }
 
 .fighters-view img:hover  {
   animation: move-up 0.5s ease-in forwards;
-}
-
-.result-view {
-  margin-top: 10vh;
 }
 
 .result-view img:hover {
