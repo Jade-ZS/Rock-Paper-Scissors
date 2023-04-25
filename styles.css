@@ -24,7 +24,7 @@ body,
 .customize-avatar-section,
 .game-view,
 .fighters-view,
-.game-buttons,
+.game-button-container,
 .alert-buttons {
   display: flex;
 }
@@ -51,6 +51,12 @@ button {
   color: white;
   cursor: pointer;
   border-radius: 5px;
+  border: solid;
+  border-color: #ffcae9 #ffcae9 #274029 #274029;
+}
+
+button:hover {
+  border-color: #274029 #274029 #ffcae9 #ffcae9; 
 }
 
 .login-view button {
@@ -58,7 +64,6 @@ button {
   margin: 0.5vh;
   font-size: 2.5vh;
   text-shadow: -2px 2px 4px red;
-  border-color: pink;
 }
 
 .alert-buttons {
@@ -66,9 +71,17 @@ button {
   gap: 60%;
 }
 
-.game-buttons {
+.game-button-container {
+  justify-content: space-between;
+  width: 30%;
+  max-width: 25vw;
+}
+
+.game-button {
+  background-color: #f74780;
   height: 8vh;
   font-size: 2vh;
+  gap: 10%;
 }
 
 /* text */
@@ -80,6 +93,10 @@ button {
 @font-palette-values --mint {
   font-family: "Rocher";
   base-palette: 7;
+}
+
+.swal2-title {
+  text-shadow: none;
 }
 
 h1,
@@ -173,10 +190,6 @@ select {
   color: #f74780;
 }
 
-.fighters-view {
-  position: relative;
-}
-
 .alert-box {
   border-radius: 10px;
   background-color: #3CD184;
@@ -192,6 +205,7 @@ select {
 }
 
 .fighters-view {
+  position: relative;
   height: 30vh;
   align-content: center;
   flex-wrap: wrap;
@@ -205,10 +219,6 @@ select {
 
 .result-view {
   margin-top: 10vh;
-}
-
-.swal2-title {
-  text-shadow: none;
 }
 
 .result-view img:hover {
