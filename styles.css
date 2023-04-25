@@ -24,7 +24,8 @@ body,
 .customize-avatar-section,
 .game-view,
 .fighters-view,
-.game-buttons {
+.game-button-container,
+.alert-buttons {
   display: flex;
 }
 
@@ -32,7 +33,8 @@ form,
 .gameboard,
 header,
 .player,
-.mode {
+.mode,
+.alert-box {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,11 +45,43 @@ img {
   cursor: pointer;
 }
 
+/* button */
 button {
   background-color: #fc6998;
   color: white;
   cursor: pointer;
   border-radius: 5px;
+  border: solid;
+  border-color: #ffcae9 #ffcae9 #274029 #274029;
+}
+
+button:hover {
+  border-color: #274029 #274029 #ffcae9 #ffcae9; 
+}
+
+.login-view button {
+  height: 15%;
+  margin: 0.5vh;
+  font-size: 2.5vh;
+  text-shadow: -2px 2px 4px red;
+}
+
+.alert-buttons {
+  justify-content: center;
+  gap: 60%;
+}
+
+.game-button-container {
+  justify-content: space-between;
+  width: 30%;
+  max-width: 25vw;
+}
+
+.game-button {
+  background-color: #f74780;
+  height: 8vh;
+  font-size: 2vh;
+  gap: 10%;
 }
 
 /* text */
@@ -61,6 +95,10 @@ button {
   base-palette: 7;
 }
 
+.swal2-title {
+  text-shadow: none;
+}
+
 h1,
 .login-header {
   font-family: "Rocher";
@@ -71,7 +109,6 @@ h1 {
   font-size: 10vh;
   font-weight: 900;
   margin-block-end: 0;
-  /* text-shadow: 2px 2px red;  */
 }
 
 h2 {
@@ -112,14 +149,6 @@ select {
   text-align: center;
 }
 
-.login-view button {
-  height: 15%;
-  margin: 0.5vh;
-  font-size: 2.5vh;
-  text-shadow: -2px 2px 4px red;
-  border-color: pink;
-}
-
 .input {
   font-size: 3vh;
   text-shadow: 2px 2px red; 
@@ -133,11 +162,6 @@ select {
 
 .player>h2 {
   margin-block: 0;
-}
-
-.player>button {
-  height: 8vh;
-  font-size: 2vh;
 }
 
 .player img {
@@ -166,15 +190,7 @@ select {
   color: #f74780;
 }
 
-.fighters-view {
-  position: relative;
-}
-
 .alert-box {
-  display: flex;
-  flex-direction: column;
-  /* justify-content: center; */
-  align-items: center;
   border-radius: 10px;
   background-color: #3CD184;
   position: absolute;
@@ -188,19 +204,8 @@ select {
   margin-top: 10%;
 }
 
-.alert-buttons {
-  /* margin-top: 10%; */
-  display: flex;
-  justify-content: center;
-  gap: 60%;
-}
-
-
-/* .ok-button {
-  margin-left: 80%;
-} */
-
 .fighters-view {
+  position: relative;
   height: 30vh;
   align-content: center;
   flex-wrap: wrap;
@@ -214,12 +219,6 @@ select {
 
 .result-view {
   margin-top: 10vh;
-  /* height: 100vh;
-  width: 100vw; */
-}
-
-.swal2-title {
-  text-shadow: none;
 }
 
 .result-view img:hover {

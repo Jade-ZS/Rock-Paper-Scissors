@@ -163,7 +163,7 @@ function displayHome() {
   renderSideBar(players);
   var itemsToShow= [gameView].concat(Array.from(modes));
   ifShowItems(itemsToShow, true);
-  var itemsToHide = [result, fighters, loginView, changeModeButton, returnHomeButton];
+  var itemsToHide = [result, fighters, loginView, changeModeButton, returnHomeButton, endGameButton];
   ifShowItems(itemsToHide, false);
 }
 
@@ -191,7 +191,7 @@ function toggleMode() {
 function displayFighters() {
   showMessage('Choose your fighter!');
   renderFighters(currentGame.mode);
-  var itemsToShow = [fighters, changeModeButton, returnHomeButton];
+  var itemsToShow = [fighters, changeModeButton, returnHomeButton, endGameButton];
   ifShowItems(itemsToShow, true);
   var itemsToHide = [loginView, result].concat(Array.from(modes));
   ifShowItems(itemsToHide, false);
