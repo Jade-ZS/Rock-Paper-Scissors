@@ -72,16 +72,15 @@ button:hover {
 }
 
 .game-button-container {
-  justify-content: space-between;
+  justify-content: space-evenly;
   width: 30%;
-  max-width: 25vw;
+  max-width: 25vw; 
 }
 
 .game-button {
   background-color: #f74780;
   height: 8vh;
   font-size: 2vh;
-  gap: 10%;
 }
 
 /* text */
