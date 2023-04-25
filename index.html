@@ -48,7 +48,7 @@
         <h1>👧🏻</h1>
         <h2>Human</h2>
         <h4>Wins: 0</h4>
-        <button type="button" class="change-mode-button hidden">Change Mode</button>
+        <button type="button" class="end-game-button">End Game</button>
       </aside>
       <section class="gameboard">
         <header>
@@ -69,10 +69,17 @@
           <p>lizard &gt; paper & alien</p>
           <p>alien &gt; scissors & rock</p>
         </article>
-        <section class="view fighters-view"></section>
-        <!-- fighter choices will appear here -->
-        <section class="view result-view"></section>
-        <!-- game result will appear here -->
+        <section class="view fighters-view"><!-- fighter choices will appear here --></section>
+        <fieldset class="alert-box hidden">
+          <h4 class="alert-message"><!-- alert will appear here --></h4>
+          <div class="alert-buttons">
+            <button type="button" class="cancel-button">Cancel</button>
+            <button type="button" class="ok-button">OK</burron>
+          </div>
+        </fieldset>
+        <section class="view result-view"><!-- game result will appear here --></section>
+        <button type="button" class="change-mode-button hidden">Change Mode</button>
+        <button type="button" class="return-home-button">Return Home</button>
       </section>
       <aside class="player">
         <h1>💻</h1>

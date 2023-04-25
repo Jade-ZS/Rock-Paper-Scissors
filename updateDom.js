@@ -12,37 +12,42 @@ function showMessage(message) {
   subline.innerText = message;
 }
 
+function showAlertMessage(message) {
+  alertMessage.innerText = message;
+  ifShowItems([alertBox], true);
+}
 
-function renderFighters(mode) {
+function renderFighters(choices) {
   fighters.innerHTML = '';
   for (var i = 0; i < 5; i++) {
-    if (!mode[i]) {
+    if (!choices[i]) {
       return;
     }
-    fighters.innerHTML += `<img src=${mode[i].img} alt=${mode[i].fighter}>`
+    fighters.innerHTML += `<img src=${choices[i].img} alt=${choices[i].fighter}>`
   }
 }
 
 function renderResult() {
   currentGame.computerPlayer.currentChoice = generateRandomFighter(currentGame.mode);
   result.innerHTML = `
-    <img src=${currentGame.humanPlayer.currentChoice.img} alt=${currentGame.humanPlayer.currentChoice.fighter}>
-    <img src=${currentGame.computerPlayer.currentChoice.img} alt=${currentGame.computerPlayer.currentChoice.fighter}>
+    <img class="human-choice" src=${currentGame.humanPlayer.currentChoice.img} alt=${currentGame.humanPlayer.currentChoice.fighter}>
+    <img class="computer-choice" src=${currentGame.computerPlayer.currentChoice.img} alt=${currentGame.computerPlayer.currentChoice.fighter}>
   `;
 }
 
-function renderPlayers(players) {
+function renderSideBar(players) {
   var leftChildren = players[0].children;
-  if (typeof currentGame.humanPlayer.avatar !== 'string') {
-    leftChildren[0].innerHTML = `<img src=${currentGame.humanPlayer.avatar.imgSrc}>`
+  if (currentGame.humanPlayer.avatar.includes('data')) {
+    leftChildren[0].innerHTML = `<img src=${localStorage.getItem('avatar')}>`
   } else {
-    leftChildren[0].innerText = currentGame.humanPlayer.avatar;
+    leftChildren[0].innerText = localStorage.getItem('avatar');
   }
-  leftChildren[1].innerText = currentGame.humanPlayer.name;
-  leftChildren[2].innerText = `Wins: ${currentGame.humanPlayer.wins}`;
+  leftChildren[1].innerText = localStorage.getItem('name');
+  leftChildren[2].innerText = `Wins: ${localStorage.getItem('humanWins')}`;
 
   var rightChildren = players[1].children;
   rightChildren[0].innerText = currentGame.computerPlayer.avatar;
   rightChildren[1].innerText = currentGame.computerPlayer.name;
-  rightChildren[2].innerText = `Wins: ${currentGame.computerPlayer.wins}`;
+  rightChildren[2].innerText = `Wins: ${localStorage.getItem('computerWins')}`;
 }
+
