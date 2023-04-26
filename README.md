@@ -11,10 +11,11 @@ This App allows user to play rock-paper-scissors with computer. Users can custom
 
 ### Preview of App:
 The user can choose to customize username and profile. 
-![customize avatar](https://im4.ezgif.com/tmp/ezgif-4-a162183415.gif)
+![customize avatar](https://user-images.githubusercontent.com/123802263/234686081-77456e3f-f8eb-4574-b500-0a1114deadf9.gif)
 
 The user can choose the difficulty level of the game. When the user choose to switch game mode, the app will alart the user and confirm the user's choice. The user can click the "end game" button to finish the game and erase the user record. 
-![play and end game](https://im4.ezgif.com/tmp/ezgif-4-7e4b12a504.gif)
+![play and end game](https://user-images.githubusercontent.com/123802263/234686862-a216432b-2a91-48ab-bf31-84ccecd61858.gif)
+
 
 ### Context:
 I finished this project independently during my fifth week in Turing's front end engineer program. Besides completing the required features of the project, I also added extended feature such as allowing user to upload their own profile image, alert user when user chooses to switch game mode, store game data to local storage and etc. 
