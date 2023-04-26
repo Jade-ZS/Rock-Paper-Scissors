@@ -17,6 +17,8 @@ The user can choose the difficulty level of the game. When the user choose to sw
 
 ![play and end game](https://user-images.githubusercontent.com/123802263/234686862-a216432b-2a91-48ab-bf31-84ccecd61858.gif)
 
+### Contributer:
+[Jade Shi](https://github.com/Jade-ZS?tab=repositories)
 
 ### Context:
 I finished this project independently during my fifth week in Turing's front end engineer program. Besides completing the required features of the project, I also added extended feature such as allowing user to upload their own profile image, alert user when user chooses to switch game mode, store game data to local storage and etc. 
