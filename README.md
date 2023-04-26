@@ -2,6 +2,8 @@
 ### Abstract:
 This App allows user to play rock-paper-scissors with computer. Users can customize their own usernames and profile images, or use the default name and profile by clicking "continue as guest" button. Users can choose between classic game mode and difficult game mode, and easily switch between game modes by clicking the "change mode" button. The app will keep track of user's playing record. Refreshing the page will not erase user's data unless the user clicks on the "end game" button. 
 
+The project specifications can be found [here](https://frontend.turing.edu/projects/module-1/rock-paper-scissors-solo-v2.html)
+
 ### Installation Instructions:
 [//]: <> (What steps does a person have to take to get your app cloned down and running?)
 1. Copy repository `SSH link`.
