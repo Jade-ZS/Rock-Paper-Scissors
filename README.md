@@ -5,8 +5,7 @@ This App allows user to play rock-paper-scissors with computer. Users can custom
 The project specifications can be found [here](https://frontend.turing.edu/projects/module-1/rock-paper-scissors-solo-v2.html)
 
 ### Installation Instructions:
-[//]: <> (What steps does a person have to take to get your app cloned down and running?)
-Visit [this website](https://jade-zs.github.io/Rock-Paper-Scissors/) or follow the following steps:
+Visit the [deployed site](https://rock-paper-scissors-taupe-six.vercel.app/) or follow the following steps:
 1. Copy repository `SSH link`.
 2. Run `git clone` followed by the `SSH link` in your `terminal`.
 3. Move into the `Rock-Paper-Scissors` directory using the `cd` command in your `terminal`.
